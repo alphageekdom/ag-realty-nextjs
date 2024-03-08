@@ -2,7 +2,6 @@ import React from 'react';
 
 const Hero = () => {
   return (
-    // <!-- Hero -->
     <section className='bg-cyan-700 py-20 mb-4'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center'>
         <div className='text-center'>
@@ -21,7 +20,7 @@ const Hero = () => {
             <input
               type='text'
               id='location'
-              placeholder='Enter Location (City, State, Zip, etc'
+              placeholder='Enter Location (City, State, Zip, etc.)'
               className='w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500'
             />
           </div>
