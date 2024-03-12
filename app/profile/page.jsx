@@ -42,8 +42,36 @@ const ProfilePage = () => {
     }
   }, [session]);
 
-  const handleDeleteProperty = (propertyId) => {
-    console.log(propertyId);
+  const handleDeleteProperty = async (propertyId) => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this property?'
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/properties/${propertyId}`, {
+        method: 'DELETE',
+      });
+
+      if (res.status === 200) {
+        // Remove the property from state
+        const updatedProperties = properties.filter(
+          (property) => property._id !== propertyId
+        );
+
+        setProperties(updatedProperties);
+
+        alert('Property Deleted');
+      } else {
+        alert('Failed To Delete Property');
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Failed To Delete Property');
+    }
   };
 
   return (

@@ -1,5 +1,6 @@
 import connectDB from '@/config/database';
 import Property from '@/models/Property';
+import { getSessionUser } from '@/utils/getSessionUser';
 
 // GET /api/properties/:id
 export const GET = async (request, { params }) => {
@@ -37,7 +38,7 @@ export const DELETE = async (request, { params }) => {
 
     await connectDB();
 
-    const property = await Property.findById(params.id);
+    const property = await Property.findById(propertyId);
 
     if (!property) return new Response('Property Not Found', { status: 404 });
 
