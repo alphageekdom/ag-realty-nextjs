@@ -42,7 +42,9 @@ const ProfilePage = () => {
     }
   }, [session]);
 
-  const handleDeleteProperty = () => {};
+  const handleDeleteProperty = (propertyId) => {
+    console.log(propertyId);
+  };
 
   return (
     <section className='bg-blue-50'>
