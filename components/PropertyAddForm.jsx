@@ -14,13 +14,13 @@ const PropertyAddForm = () => {
       state: 'Test State',
       zipcode: '',
     },
-    beds: '3',
-    baths: '2',
-    square_feet: '1800',
+    beds: 3,
+    baths: 2,
+    square_feet: 1800,
     amenities: [],
     rates: {
       weekly: '',
-      monthly: '2000',
+      monthly: 2000,
       nightly: '',
     },
     seller_info: {
@@ -255,9 +255,9 @@ const PropertyAddForm = () => {
               id='square_feet'
               name='square_feet'
               className='border rounded w-full py-2 px-3'
-              required
               value={fields.square_feet}
               onChange={handleChange}
+              required
             />
           </div>
         </div>

@@ -40,7 +40,7 @@ const PropertySchema = new Schema(
       type: Number,
       required: true,
     },
-    square_footage: {
+    square_feet: {
       type: Number,
       required: true,
     },
