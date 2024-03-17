@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/images/logo-white.png';
 import profileDefault from '@/assets/images/profile.png';
-import { FaGoogle, FaEnvelope } from 'react-icons/fa';
+import { FaGoogle, FaInbox, FaEnvelope } from 'react-icons/fa';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import UnreadMessageCount from './UnreadMessageCount';
 
@@ -129,12 +129,21 @@ const Navbar = () => {
                     <button
                       onClick={() => signIn(provider.id)}
                       key={index}
-                      className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
+                      className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 mr-2'
                     >
                       <FaGoogle className='text-white mr-2' />
-                      <span>Login or Register</span>
+                      <span>Login/Register</span>
                     </button>
                   ))}
+                <Link
+                  href={'/account/login'}
+                  className={`${
+                    pathname === '/account/login' ? 'bg-black' : 'bg-gray-700'
+                  } flex items-center text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+                >
+                  <FaEnvelope className='text-white mr-2' />
+                  Login/Register
+                </Link>
               </div>
             </div>
           )}
@@ -149,7 +158,7 @@ const Navbar = () => {
                 >
                   <span className='absolute -inset-1.5'></span>
                   <span className='sr-only'>View notifications</span>
-                  <FaEnvelope className='text-white w-6 h-6' />
+                  <FaInbox className='text-white w-6 h-6' />
                 </button>
                 <UnreadMessageCount session={session} />
               </Link>
