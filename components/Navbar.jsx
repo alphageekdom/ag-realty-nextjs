@@ -278,9 +278,18 @@ const Navbar = () => {
                   className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
                 >
                   <FaGoogle className='text-white mr-2' />
-                  <span>Login or Register</span>
+                  <span>Login/Register</span>
                 </button>
               ))}
+            <Link
+              href={'/account/login'}
+              className={`${
+                pathname === '/account/login' ? 'bg-black' : 'bg-gray-700'
+              } flex items-center text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 w-40`}
+            >
+              <FaEnvelope className='text-white mr-2' />
+              Login/Register
+            </Link>
           </div>
         </div>
       )}
