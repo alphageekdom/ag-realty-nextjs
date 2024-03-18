@@ -1,12 +1,10 @@
-'use client';
-
 import { createContext, useState } from 'react';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
+  const [user, setUser] = useState('');
+  const [error, setError] = useState('');
 
   // Register User
   const register = async (user) => {

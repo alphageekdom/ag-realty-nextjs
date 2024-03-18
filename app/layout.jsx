@@ -1,12 +1,12 @@
 import '@/assets/styles/global.css';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
-import AuthProvider from '@/components/AuthProvider';
 import { GlobalProvider } from '@/context/GlobalContext';
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 import 'photoswipe/dist/photoswipe.css';
+import AuthProvider from '@/components/AuthProvider';
 
 export const metadata = {
   title: 'AG Realty | Find The Perfect Rental',
@@ -16,8 +16,8 @@ export const metadata = {
 
 const MainLayout = ({ children }) => {
   return (
-    <AuthProvider>
-      <GlobalProvider>
+    <GlobalProvider>
+      <AuthProvider>
         <html lang='en'>
           <body>
             <Navbar />
@@ -26,8 +26,8 @@ const MainLayout = ({ children }) => {
             <ToastContainer />
           </body>
         </html>
-      </GlobalProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </GlobalProvider>
   );
 };
 
