@@ -1,43 +1,57 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 const RegisterCard = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const router = useRouter();
+
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (password !== passwordConfirm) {
-      toast.error('Passwords Do Not Match');
-    }
+    setLoading(true);
 
     try {
-      const res = await fetch('/api/register', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
+        body: JSON.stringify(formData),
       });
 
-      if (res.status === 200) {
-        const data = await res.json();
-        console.log(data);
+      console.log(response);
+
+      if (response.status === 200) {
+        toast.success('Registration Successful!');
+        router.push('/auth/login');
+      } else {
+        const data = await response.json();
+        toast.error(data.message || 'Registration Failed');
       }
     } catch (error) {
-      console.log(error);
-      toast.error('Registration Error');
+      console.error(error);
+      toast.error('Something Went Wrong');
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -60,18 +74,21 @@ const RegisterCard = () => {
         Or register with your email address
       </div>
       <div className='mb-4'>
-        <label className='block text-gray-700 font-bold mb-2' htmlFor='name'>
+        <label
+          className='block text-gray-700 font-bold mb-2'
+          htmlFor='username'
+        >
           Name
         </label>
         <input
           type='text'
-          id='name'
-          name='name'
+          id='username'
+          name='username'
           className='border rounded w-full py-2 px-3 mb-2'
           placeholder='Full name'
           required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={formData.username}
+          onChange={handleChange}
         />
       </div>
 
@@ -86,8 +103,8 @@ const RegisterCard = () => {
           className='border rounded w-full py-2 px-3 mb-2'
           placeholder='Email address'
           required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
         />
       </div>
 
@@ -105,27 +122,8 @@ const RegisterCard = () => {
           className='border rounded w-full py-2 px-3 mb-2'
           placeholder='Password'
           required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-
-      <div className='mb-4'>
-        <label
-          className='block text-gray-700 font-bold mb-2'
-          htmlFor='passwordConfirm'
-        >
-          Confirm Password
-        </label>
-        <input
-          type='password'
-          id='passwordConfirm'
-          name='passwordConfirm'
-          className='border rounded w-full py-2 px-3 mb-2'
-          placeholder='Confirm Password'
-          required
-          value={passwordConfirm}
-          onChange={(e) => setPasswordConfirm(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
         />
       </div>
 
@@ -133,8 +131,9 @@ const RegisterCard = () => {
         <button
           className='bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
           type='submit'
+          disabled={loading}
         >
-          Register
+          {loading ? 'Rgistering...' : 'Register'}
         </button>
       </div>
       <div className='text-center'>

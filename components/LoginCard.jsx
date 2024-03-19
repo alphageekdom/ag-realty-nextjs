@@ -75,7 +75,7 @@ const LoginCard = () => {
       <div className='text-center'>
         <p>
           Don't Have An Account?{' '}
-          <Link href={'/account/register'} className='underline text-cyan-600'>
+          <Link href={'/auth/register'} className='underline text-cyan-600'>
             Register
           </Link>
         </p>
