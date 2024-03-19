@@ -9,6 +9,16 @@ export const POST = async (request) => {
 
     const userData = await request.json();
 
+    // Input validation
+    if (
+      !userData ||
+      !userData.username ||
+      !userData.email ||
+      !userData.password
+    ) {
+      throw new Error('Invalid input data.');
+    }
+
     // Hash password
     const hashedPassword = await bcrypt.hash(userData.password, 10);
 
