@@ -1,17 +1,55 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const LoginCard = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const router = useRouter();
+
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    login({ email, password });
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(data.message || 'Login Successful!');
+        router.push('/');
+      } else {
+        toast.error(data.error || 'Login Failed');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Something Went Wrong');
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -40,8 +78,8 @@ const LoginCard = () => {
           className='border rounded w-full py-2 px-3 mb-2'
           placeholder='Email address'
           required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
         />
       </div>
 
@@ -59,8 +97,8 @@ const LoginCard = () => {
           className='border rounded w-full py-2 px-3 mb-2'
           placeholder='Password'
           required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
         />
       </div>
 
@@ -68,8 +106,9 @@ const LoginCard = () => {
         <button
           className='bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
           type='submit'
+          disabled={loading}
         >
-          Login
+          {loading ? 'Logging in...' : 'Login'}
         </button>
       </div>
       <div className='text-center'>

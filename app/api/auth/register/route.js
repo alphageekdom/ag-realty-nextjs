@@ -2,7 +2,7 @@ import connectDB from '@/config/database';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
 
-// POST /api/auth
+// POST /api/auth/register
 export const POST = async (request) => {
   try {
     await connectDB();
