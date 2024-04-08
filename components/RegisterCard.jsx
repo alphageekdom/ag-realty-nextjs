@@ -30,7 +30,7 @@ const RegisterCard = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/auth/register', {
+      const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,9 +38,7 @@ const RegisterCard = () => {
         body: JSON.stringify(formData),
       });
 
-      console.log(response);
-
-      if (response.status === 200) {
+      if (res.ok) {
         toast.success('Registration Successful!');
         router.push('/auth/login');
       } else {

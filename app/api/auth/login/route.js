@@ -1,6 +1,7 @@
 import connectDB from '@/config/database';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
+import { signIn } from 'next-auth/react';
 
 // POST /api/auth/login
 export const POST = async (request) => {
@@ -25,8 +26,6 @@ export const POST = async (request) => {
     // Validate password
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    console.log(isPasswordValid);
-
     if (!isPasswordValid) {
       return new Response(
         JSON.stringify({ error: 'Invalid email or password' }),
@@ -35,6 +34,13 @@ export const POST = async (request) => {
           headers: { 'Content-Type': 'application/json' },
         }
       );
+    }
+
+    if (typeof window !== 'undefined') {
+      // Sign in the user to establish the session
+      await signIn('credentials', {
+        email: user.email,
+      });
     }
 
     // Return success response

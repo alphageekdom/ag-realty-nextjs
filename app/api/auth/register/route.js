@@ -19,6 +19,20 @@ export const POST = async (request) => {
       throw new Error('Invalid input data.');
     }
 
+    // Check if username is already taken
+    const existingUsername = await User.findOne({
+      username: userData.username,
+    });
+    if (existingUsername) {
+      throw new Error('Username is already taken.');
+    }
+
+    // Check if email is already registered
+    const existingEmail = await User.findOne({ email: userData.email });
+    if (existingEmail) {
+      throw new Error('Email is already registered.');
+    }
+
     // Hash password
     const hashedPassword = await bcrypt.hash(userData.password, 10);
 
@@ -33,11 +47,21 @@ export const POST = async (request) => {
 
     // return Response.redirect(`${process.env.NEXTAUTH_URL}/auth/login`);
 
-    return new Response(JSON.stringify('Registration Successful'), {
-      status: 200,
-    });
+    return new Response(
+      JSON.stringify({ message: 'Registration Successful' }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
   } catch (error) {
     console.log(error);
-    return new Response('Failed To Add Property', { status: 500 });
+
+    let errorMessage = 'Failed to register user.';
+    // Customize error message based on specific error types
+    if (error.message.includes('Username')) {
+      errorMessage = 'Username is already taken.';
+    } else if (error.message.includes('Email')) {
+      errorMessage = 'Email is already registered.';
+    }
+
+    return new Response(errorMessage, { status: 400 });
   }
 };

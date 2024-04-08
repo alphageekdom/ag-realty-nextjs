@@ -11,7 +11,9 @@ import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import UnreadMessageCount from './UnreadMessageCount';
 
 const Navbar = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  console.log(session);
+
   const profileImage = session?.user?.image;
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -39,6 +41,11 @@ const Navbar = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Wait for the session to be loaded before rendering
+  if (status === 'loading') {
+    return null; // Render nothing or loading indicator
+  }
 
   return (
     <nav className='bg-cyan-700 border-b border-cyan-500'>
@@ -127,23 +134,30 @@ const Navbar = () => {
                 {providers &&
                   Object.values(providers).map((provider, index) => (
                     <button
-                      onClick={() => signIn(provider.id)}
+                      onClick={() => {
+                        if (provider.id === 'google') {
+                          signIn(provider.id);
+                        } else if (provider.id === 'credentials') {
+                          // Navigate to '/auth/login' page
+                          window.location.href = '/auth/login';
+                        }
+                      }}
                       key={index}
                       className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 mr-2'
                     >
-                      <FaGoogle className='text-white mr-2' />
-                      <span>Login/Register</span>
+                      {provider.id === 'google' ? (
+                        <>
+                          <FaGoogle className='text-white mr-2' />
+                          <span>Login/Register</span>
+                        </>
+                      ) : provider.id === 'credentials' ? (
+                        <>
+                          <FaEnvelope className='text-white mr-2' />
+                          <span>Login/Register</span>
+                        </>
+                      ) : null}
                     </button>
                   ))}
-                <Link
-                  href={'/auth/login'}
-                  className={`${
-                    pathname === '/auth/login' ? 'bg-black' : 'bg-gray-700'
-                  } flex items-center text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
-                >
-                  <FaEnvelope className='text-white mr-2' />
-                  Login/Register
-                </Link>
               </div>
             </div>
           )}
@@ -273,12 +287,28 @@ const Navbar = () => {
               providers &&
               Object.values(providers).map((provider, index) => (
                 <button
-                  onClick={() => signIn(provider.id)}
+                  onClick={() => {
+                    if (provider.id === 'google') {
+                      signIn(provider.id);
+                    } else if (provider.id === 'credentials') {
+                      // Navigate to '/auth/login' page
+                      window.location.href = '/auth/login';
+                    }
+                  }}
                   key={index}
-                  className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
+                  className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 mr-2'
                 >
-                  <FaGoogle className='text-white mr-2' />
-                  <span>Login/Register</span>
+                  {provider.id === 'google' ? (
+                    <>
+                      <FaGoogle className='text-white mr-2' />
+                      <span>Login/Register</span>
+                    </>
+                  ) : provider.id === 'credentials' ? (
+                    <>
+                      <FaEnvelope className='text-white mr-2' />
+                      <span>Login/Register</span>
+                    </>
+                  ) : null}
                 </button>
               ))}
           </div>

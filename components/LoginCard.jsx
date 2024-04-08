@@ -1,19 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { signIn, useSession } from 'next-auth/react';
 
 const LoginCard = () => {
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (session) {
+      router.replace('/'); // Redirect to home if already logged in
+    }
+  }, [session, router]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,30 +35,20 @@ const LoginCard = () => {
     e.preventDefault();
     setLoading(true);
 
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        toast.success(data.message || 'Login Successful!');
-        router.push('/');
-      } else {
-        toast.error(data.error || 'Login Failed');
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error('Something Went Wrong');
-    } finally {
+    signIn('credentials', {
+      redirect: false,
+      email: formData.email,
+      password: formData.password,
+    }).then((res) => {
       setLoading(false);
-    }
+      if (res.error) {
+        toast.error(res.error);
+      } else {
+        router.push('/');
+      }
+    });
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <h2 className='text-3xl text-center font-semibold mb-6'>Login</h2>
