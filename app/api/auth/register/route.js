@@ -45,6 +45,9 @@ export const POST = async (request) => {
 
     await newUser.save();
 
+    request.session.set('userId', newUser._id);
+    await request.session.save();
+
     // return Response.redirect(`${process.env.NEXTAUTH_URL}/auth/login`);
 
     return new Response(
