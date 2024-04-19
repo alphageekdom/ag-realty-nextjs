@@ -36,12 +36,10 @@ export const POST = async (request) => {
       );
     }
 
-    if (typeof window !== 'undefined') {
-      // Sign in the user to establish the session
-      await signIn('credentials', {
-        email: user.email,
-      });
-    }
+    // Sign in the user to establish the session
+    await signIn('credentials', {
+      email: user.email,
+    });
 
     // Return success response
     return new Response(JSON.stringify({ message: 'Login successful' }), {

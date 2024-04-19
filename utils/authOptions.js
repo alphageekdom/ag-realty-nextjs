@@ -55,7 +55,6 @@ export const authOptions = {
             id: user._id.toString(),
             email: user.email,
             username: user.username,
-            // Add any additional fields you need
             role: user.role,
           };
 
@@ -74,13 +73,14 @@ export const authOptions = {
   callbacks: {
     // Modify the session object
     async session({ session, token }) {
+      console.log(token);
       session.user.id = token.sub;
+      session.user.userId = token.sub;
       return session;
     },
 
     // Invoked on successful sign-in
     async signIn({ user }) {
-      console.log('User: ', user);
       // Connect to database
       await connectDB();
       // Check if user exists
