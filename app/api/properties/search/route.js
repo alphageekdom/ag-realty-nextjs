@@ -10,8 +10,6 @@ export const GET = async (request) => {
     const location = searchParams.get('location');
     const propertyType = searchParams.get('propertyType');
 
-    console.log(location, propertyType);
-
     const locationPattern = new RegExp(location, 'i');
 
     // Match location pattern against database fields

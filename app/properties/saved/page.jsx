@@ -17,7 +17,7 @@ const SavedPropertiesPage = () => {
           const data = await res.json();
           setProperties(data);
         } else {
-          console.log(res.statusText);
+          console.log(res.status);
           toast.error('Failed To Fetch Saved Properties');
         }
       } catch (error) {

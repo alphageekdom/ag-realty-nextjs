@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FaPaperPlane } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
+import DOMPurify from 'dompurify';
 
 const PropertyContactForm = ({ property }) => {
   const { data: session } = useSession();
@@ -17,11 +18,11 @@ const PropertyContactForm = ({ property }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
-      name,
-      email,
-      phone,
-      message,
+    const sanitizedData = {
+      name: DOMPurify.sanitize(name),
+      email: DOMPurify.sanitize(email),
+      phone: DOMPurify.sanitize(phone),
+      message: DOMPurify.sanitize(message),
       recipient: property.owner,
       property: property._id,
     };

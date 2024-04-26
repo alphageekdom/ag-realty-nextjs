@@ -16,6 +16,7 @@ const LoginCard = () => {
     email: '',
     password: '',
   });
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -36,22 +37,23 @@ const LoginCard = () => {
     e.preventDefault();
     setLoading(true);
 
-    const sanitizedEmail = DOMPurify.sanitize(formData.email);
-    const sanitizedPassword = DOMPurify.sanitize(formData.password);
+    // const sanitizedEmail = DOMPurify.sanitize(formData.email);
+    // const sanitizedPassword = DOMPurify.sanitize(formData.password);
 
-    if (!sanitizedEmail || !sanitizedPassword) {
-      toast.error('Please enter both email and password');
-      setLoading(false);
-      return;
-    }
+    // if (!sanitizedEmail || !sanitizedPassword) {
+    //   toast.error('Please enter both email and password');
+    //   setLoading(false);
+    //   return;
+    // }
 
     signIn('credentials', {
       redirect: false,
-      email: sanitizedEmail,
-      password: sanitizedPassword,
+      email: formData.email,
+      password: formData.password,
     }).then((res) => {
       setLoading(false);
       if (res.error) {
+        console.log(res.error);
         toast.error(res.error);
       } else {
         router.push('/');

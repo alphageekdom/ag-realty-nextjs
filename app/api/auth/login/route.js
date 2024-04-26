@@ -11,6 +11,8 @@ export const POST = async (request) => {
 
     const errors = validationResult(request);
 
+    console.log(errors);
+
     if (!errors.isEmpty()) {
       return new Response(JSON.stringify({ errors: errors.array() }), {
         status: 400,
