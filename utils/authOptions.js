@@ -70,36 +70,34 @@ export const authOptions = {
     jwt: true,
   },
   callbacks: {
-    // Modify the session object
-    async session({ session, token }) {
-      const user = await User.findById(token.sub);
-      if (user) {
-        session.user.id = user.id;
-        session.user.userId = user._id;
-        session.user.isAdmin = user.isAdmin;
-      }
-      return session;
-    },
-
     // Invoked on successful sign-in
-    async signIn({ user }) {
+    async signIn({ profile }) {
       // Connect to database
       await connectDB();
       // Check if user exists
-      const userExists = await User.findOne({ email: user.email });
+      const userExists = await User.findOne({ email: profile.email });
       // User does not exist, add to database
       if (!userExists) {
         // Truncate username if too long
-        const name = user.name.slice(0, 20);
+        const name = profile.username.slice(0, 20);
 
         await User.create({
-          email: user.email,
+          email: profile.email,
           name,
-          image: user.picture,
+          image: profile.picture,
         });
       }
       // Return true to allow sign-in
       return true;
+    },
+
+    // Modify the session object
+    async session({ session }) {
+      const user = await User.findOne({ email: session.user.email });
+      // 2. Assign the user id to the session
+      session.user.id = user._id.toString();
+      // 3. return session
+      return session;
     },
   },
 };
