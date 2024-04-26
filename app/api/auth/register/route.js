@@ -1,13 +1,23 @@
 import connectDB from '@/config/database';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
+import { validationResult } from 'express-validator';
 
-// POST /api/auth/register
+// POST /api/register
 export const POST = async (request) => {
   try {
     await connectDB();
 
-    const { email, username, password } = await request.json();
+    const errors = validationResult(request);
+
+    if (!errors.isEmpty()) {
+      return new Response(JSON.stringify({ errors: errors.array() }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const { email, name, password } = await request.json();
 
     const existingUser = await User.findOne({ email });
 
@@ -17,17 +27,18 @@ export const POST = async (request) => {
         headers: { 'Content-Type': 'application/json' },
       });
     }
-    s;
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user object
     const newUser = new User({
-      username,
+      name,
       email,
       password: hashedPassword,
     });
+
+    console.log(newUser);
 
     await newUser.save();
 
@@ -39,15 +50,6 @@ export const POST = async (request) => {
     );
   } catch (error) {
     console.log(error);
-
-    let errorMessage = 'Failed to register user.';
-    // Customize error message based on specific error types
-    if (error.message.includes('Username')) {
-      errorMessage = 'Username is already taken.';
-    } else if (error.message.includes('Email')) {
-      errorMessage = 'Email is already registered.';
-    }
-
     return new Response(errorMessage, { status: 400 });
   }
 };

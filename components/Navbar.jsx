@@ -12,7 +12,6 @@ import UnreadMessageCount from './UnreadMessageCount';
 
 const Navbar = () => {
   const { data: session, status } = useSession();
-  console.log(session);
 
   const profileImage = session?.user?.image;
 
@@ -139,7 +138,7 @@ const Navbar = () => {
                           signIn(provider.id);
                         } else if (provider.id === 'credentials') {
                           // Navigate to '/auth/login' page
-                          window.location.href = '/auth/login';
+                          window.location.href = '/login';
                         }
                       }}
                       key={index}
@@ -292,7 +291,7 @@ const Navbar = () => {
                       signIn(provider.id);
                     } else if (provider.id === 'credentials') {
                       // Navigate to '/auth/login' page
-                      window.location.href = '/auth/login';
+                      window.location.href = '/login';
                     }
                   }}
                   key={index}

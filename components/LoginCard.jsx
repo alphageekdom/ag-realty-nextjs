@@ -6,12 +6,11 @@ import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { signIn, useSession } from 'next-auth/react';
+import DOMPurify from 'dompurify';
 
 const LoginCard = () => {
   const router = useRouter();
   const { data: session } = useSession();
-
-  console.log(session);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -37,10 +36,19 @@ const LoginCard = () => {
     e.preventDefault();
     setLoading(true);
 
+    const sanitizedEmail = DOMPurify.sanitize(formData.email);
+    const sanitizedPassword = DOMPurify.sanitize(formData.password);
+
+    if (!sanitizedEmail || !sanitizedPassword) {
+      toast.error('Please enter both email and password');
+      setLoading(false);
+      return;
+    }
+
     signIn('credentials', {
       redirect: false,
-      email: formData.email,
-      password: formData.password,
+      email: sanitizedEmail,
+      password: sanitizedPassword,
     }).then((res) => {
       setLoading(false);
       if (res.error) {
@@ -80,6 +88,7 @@ const LoginCard = () => {
           required
           value={formData.email}
           onChange={handleChange}
+          autoComplete='current-email'
         />
       </div>
 
@@ -99,6 +108,7 @@ const LoginCard = () => {
           required
           value={formData.password}
           onChange={handleChange}
+          autoComplete='current-password'
         />
       </div>
 
@@ -114,7 +124,7 @@ const LoginCard = () => {
       <div className='text-center'>
         <p>
           Don't Have An Account?{' '}
-          <Link href={'/auth/register'} className='underline text-cyan-600'>
+          <Link href={'/register'} className='underline text-cyan-600'>
             Register
           </Link>
         </p>

@@ -49,13 +49,10 @@ export const authOptions = {
             throw new Error('Invalid password');
           }
 
-          console.log('Authenticated user:', user);
-
           const userData = {
             id: user._id.toString(),
             email: user.email,
-            username: user.username,
-            role: user.role,
+            name: user.name,
           };
 
           return userData;
@@ -66,16 +63,21 @@ export const authOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: '/login',
+  },
   session: {
-    jwt: true, // Use JSON Web Tokens for session
-    // Add other session properties as needed
+    jwt: true,
   },
   callbacks: {
     // Modify the session object
     async session({ session, token }) {
-      console.log(token);
-      session.user.id = token.sub;
-      session.user.userId = token.sub;
+      const user = await User.findById(token.sub);
+      if (user) {
+        session.user.id = user.id;
+        session.user.userId = user._id;
+        session.user.isAdmin = user.isAdmin;
+      }
       return session;
     },
 
@@ -88,11 +90,11 @@ export const authOptions = {
       // User does not exist, add to database
       if (!userExists) {
         // Truncate username if too long
-        const username = user.name.slice(0, 20);
+        const name = user.name.slice(0, 20);
 
         await User.create({
           email: user.email,
-          username,
+          name,
           image: user.picture,
         });
       }
