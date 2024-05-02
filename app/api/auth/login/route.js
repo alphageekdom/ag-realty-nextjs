@@ -4,14 +4,33 @@ import bcrypt from 'bcryptjs';
 import { signIn } from 'next-auth/react';
 import { validationResult } from 'express-validator';
 
+const saltRounds = 12;
+
+export const loginUser = async (email, password) => {
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw { statusCode: 401, message: "User Doesn't Exist" };
+  }
+
+  // Validate password
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    throw { statusCode: 401, message: 'Invalid Credentials' };
+  }
+
+  return user;
+};
+
 // POST /api/auth/login
 export const POST = async (request) => {
   try {
     await connectDB();
 
-    const errors = validationResult(request);
+    const { email, password } = await request.json();
 
-    console.log(errors);
+    const errors = validationResult(email, password);
 
     if (!errors.isEmpty()) {
       return new Response(JSON.stringify({ errors: errors.array() }), {
@@ -20,35 +39,10 @@ export const POST = async (request) => {
       });
     }
 
-    const { email, password } = await request.json();
-
-    // Find user by email
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      return new Response(JSON.stringify({ error: "User Doesn't Exist" }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    // Validate password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
-      return new Response(JSON.stringify({ error: 'Invalid Credentials' }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    // Sign in the user to establish the session
-    await signIn('credentials', {
-      email: user.email,
-    });
+    const user = await loginUser(email, password);
 
     // Return success response
-    return new Response(JSON.stringify({ message: 'Login successful' }), {
+    return new Response(JSON.stringify({ message: 'Login successful', user }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });

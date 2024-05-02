@@ -3,53 +3,56 @@ import User from '@/models/User';
 import bcrypt from 'bcryptjs';
 import { validationResult } from 'express-validator';
 
+const saltRounds = 12;
+
+export const registerUser = async (email, name, password) => {
+  await connectDB();
+
+  // Validate input
+  const errors = validationResult({ email, name, password });
+  if (!errors.isEmpty()) {
+    throw {
+      statusCode: 400,
+      message: 'Validation failed',
+      errors: errors.array(),
+    };
+  }
+
+  // Check if user already exists
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    throw { statusCode: 409, message: 'Email already in use' };
+  }
+
+  // Hash password
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+  // Create new user
+  const newUser = new User({
+    name,
+    email,
+    password: hashedPassword,
+  });
+
+  await newUser.save();
+  return { statusCode: 200, message: 'Registration Successful' };
+};
+
 // POST /api/register
 export const POST = async (request) => {
   try {
-    await connectDB();
-
-    const errors = validationResult(request);
-
-    if (!errors.isEmpty()) {
-      return new Response(JSON.stringify({ errors: errors.array() }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
     const { email, name, password } = await request.json();
-
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser) {
-      return new Response(JSON.stringify({ error: 'Email already in use' }), {
-        status: 409,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create user object
-    const newUser = new User({
-      name,
-      email,
-      password: hashedPassword,
+    const response = await registerUser(email, name, password);
+    return new Response(JSON.stringify(response), {
+      status: response.statusCode,
+      headers: { 'Content-Type': 'application/json' },
     });
-
-    console.log(newUser);
-
-    await newUser.save();
-
-    // return Response.redirect(`${process.env.NEXTAUTH_URL}/auth/login`);
-
-    return new Response(
-      JSON.stringify({ message: 'Registration Successful' }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
   } catch (error) {
-    console.log(error);
-    return new Response(errorMessage, { status: 400 });
+    console.error('Registration error:', error);
+    const statusCode = error.statusCode || 500;
+    return new Response(
+      JSON.stringify({ error: error.message || 'Internal Server Error' }),
+      { status: statusCode, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 };

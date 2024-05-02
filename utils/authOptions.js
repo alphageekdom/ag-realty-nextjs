@@ -37,14 +37,12 @@ export const authOptions = {
         try {
           const user = await User.findOne({ email });
 
-          // User not found
           if (!user) {
             throw new Error('User not found');
           }
 
           const isPasswordValid = await bcrypt.compare(password, user.password);
 
-          // Invalid password
           if (!isPasswordValid) {
             throw new Error('Invalid password');
           }
@@ -85,11 +83,10 @@ export const authOptions = {
 
   // Invoked on successful sign-in
   async signIn({ profile }) {
-    // Connect to database
     await connectDB();
-    // Check if user exists
+
     const userExists = await User.findOne({ email: profile.email });
-    // User does not exist, add to database
+
     if (!userExists) {
       // Truncate username if too long
       const name = profile.username.slice(0, 20);
@@ -100,7 +97,6 @@ export const authOptions = {
         image: profile.picture,
       });
     }
-    // Return true to allow sign-in
     return true;
   },
 };
