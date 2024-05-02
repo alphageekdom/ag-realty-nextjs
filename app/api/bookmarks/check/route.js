@@ -19,7 +19,11 @@ export const POST = async (request) => {
     const { userId } = sessionUser;
 
     // Find user in database
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findOne({ _id: userId }).select('bookmarks');
+
+    if (!user) {
+      return new Response('User not found', { status: 404 });
+    }
 
     // Check if property is bookmarked
     let isBookmarked = user.bookmarks.includes(propertyId);

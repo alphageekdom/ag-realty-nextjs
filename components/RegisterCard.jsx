@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
@@ -19,71 +19,80 @@ const RegisterCard = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-  };
+  }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setLoading(true);
 
-    const sanitizedFormData = {
-      name: DOMPurify.sanitize(formData.name),
-      email: DOMPurify.sanitize(formData.email),
-      password: DOMPurify.sanitize(formData.password),
-      confirmPassword: DOMPurify.sanitize(formData.confirmPassword),
-    };
+      const sanitizedFormData = {
+        name: DOMPurify.sanitize(formData.name),
+        email: DOMPurify.sanitize(formData.email),
+        password: DOMPurify.sanitize(formData.password),
+        confirmPassword: DOMPurify.sanitize(formData.confirmPassword),
+      };
 
-    if (sanitizedFormData.password !== sanitizedFormData.confirmPassword) {
-      toast.error('Passwords do not match');
-      setLoading(false);
-      return;
-    }
-
-    // Client-side validation
-    if (sanitizedFormData.password.length < 6) {
-      toast.error('Password must be at least 6 characters long');
-      setLoading(false);
-      return;
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(sanitizedFormData.email)) {
-      toast.error('Invalid email address');
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(sanitizedFormData),
-      });
-
-      if (res.ok) {
-        toast.success('Registration Successful!');
-        router.push('/login');
-      } else if (res.status === 409) {
-        toast.error('Email Already In Use');
-      } else {
-        const data = await res.json();
-        toast.error(data.message || 'Registration Failed');
+      const isValid = validateForm(sanitizedFormData);
+      if (!isValid) {
+        setLoading(false);
+        return;
       }
-    } catch (error) {
-      console.error(error);
-      toast.error('Something Went Wrong');
-    } finally {
-      setLoading(false);
+
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(sanitizedFormData),
+        });
+
+        if (res.ok) {
+          toast.success('Registration Successful!');
+          router.push('/login');
+        } else if (res.status === 409) {
+          toast.error('Email Already In Use');
+        } else {
+          const data = await res.json();
+          toast.error(data.message || 'Registration Failed');
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error('Something Went Wrong');
+      } finally {
+        setLoading(false);
+      }
+    },
+    [formData, router]
+  );
+
+  const validateForm = useCallback((formData) => {
+    if (formData.password !== formData.confirmPassword) {
+      toast.error('Passwords do not match');
+      return false;
     }
-  };
+
+    if (formData.password.length < 6) {
+      toast.error('Password must be at least 6 characters long');
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error('Invalid email address');
+      return false;
+    }
+
+    return true;
+  }, []);
+
   return (
     <form onSubmit={handleSubmit}>
       <h2 className='text-3xl text-center font-semibold mb-6'>

@@ -1,6 +1,5 @@
 import connectDB from '@/config/database';
 import User from '@/models/User';
-import Property from '@/models/Property';
 import { getSessionUser } from '@/utils/getSessionUser';
 
 export const dynamic = 'force-dynamic';
@@ -19,12 +18,13 @@ export const GET = async () => {
     const { userId } = sessionUser;
 
     // Find user in database
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findOne({ _id: userId }).populate('bookmarks');
 
-    // Get users bookmarks
-    const bookmarks = await Property.find({ _id: { $in: user.bookmarks } });
+    if (!user) {
+      return new Response('User not found', { status: 404 });
+    }
 
-    return new Response(JSON.stringify(bookmarks), { status: 200 });
+    return new Response(JSON.stringify(user.bookmarks), { status: 200 });
   } catch (error) {
     console.log(error);
     return new Response('Something Went Wrong', { status: 500 });
@@ -49,8 +49,12 @@ export const POST = async (request) => {
     // Find user in database
     const user = await User.findOne({ _id: userId });
 
+    if (!user) {
+      return new Response('User not found', { status: 404 });
+    }
+
     // Check if property is bookmarked
-    let isBookmarked = user.bookmarks.includes(propertyId);
+    const isBookmarked = user.bookmarks.includes(propertyId);
 
     let message;
 
@@ -72,7 +76,7 @@ export const POST = async (request) => {
       JSON.stringify({ message, isBookmarked }, { status: 200 })
     );
   } catch (error) {
-    console.log(error);
+    console.error('Error toggling bookmark:', error);
     return new Response('Something Went Wrong', { status: 500 });
   }
 };

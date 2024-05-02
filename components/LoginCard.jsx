@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
@@ -25,41 +25,48 @@ const LoginCard = () => {
     }
   }, [session, router]);
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-  };
+  }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setLoading(true);
 
-    // const sanitizedEmail = DOMPurify.sanitize(formData.email);
-    // const sanitizedPassword = DOMPurify.sanitize(formData.password);
+      const { email, password } = formData;
 
-    // if (!sanitizedEmail || !sanitizedPassword) {
-    //   toast.error('Please enter both email and password');
-    //   setLoading(false);
-    //   return;
-    // }
+      // Sanitize email and password inputs using DOMPurify
+      const sanitizedEmail = DOMPurify.sanitize(email);
+      const sanitizedPassword = DOMPurify.sanitize(password);
 
-    signIn('credentials', {
-      redirect: false,
-      email: formData.email,
-      password: formData.password,
-    }).then((res) => {
-      setLoading(false);
-      if (res.error) {
-        console.log(res.error);
-        toast.error(res.error);
-      } else {
-        router.push('/');
+      // Validate email and password
+      if (!sanitizedEmail || !sanitizedPassword) {
+        toast.error('Please enter both email and password');
+        setLoading(false);
+        return;
       }
-    });
-  };
+
+      signIn('credentials', {
+        redirect: false,
+        email: sanitizedEmail,
+        password: sanitizedPassword,
+      }).then((res) => {
+        setLoading(false);
+        if (res.error) {
+          console.log(res.error);
+          toast.error(res.error);
+        } else {
+          router.push('/');
+        }
+      });
+    },
+    [formData, router]
+  );
 
   return (
     <form onSubmit={handleSubmit}>

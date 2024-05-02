@@ -1,10 +1,7 @@
 import connectDB from '@/config/database';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
-import { signIn } from 'next-auth/react';
 import { validationResult } from 'express-validator';
-
-const saltRounds = 12;
 
 export const loginUser = async (email, password) => {
   const user = await User.findOne({ email });
