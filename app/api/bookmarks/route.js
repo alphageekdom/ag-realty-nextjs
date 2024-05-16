@@ -54,7 +54,7 @@ export const POST = async (request) => {
     }
 
     // Check if property is bookmarked
-    const isBookmarked = user.bookmarks.includes(propertyId);
+    let isBookmarked = user.bookmarks.includes(propertyId);
 
     let message;
 
