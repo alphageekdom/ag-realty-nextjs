@@ -47,13 +47,11 @@ export const authOptions = {
             throw new Error('Invalid password');
           }
 
-          const userData = {
+          return {
             id: user._id.toString(),
             email: user.email,
             name: user.name,
           };
-
-          return userData;
         } catch (error) {
           console.error('Error occurred during authentication:', error);
           throw new Error('Authentication failed');
@@ -68,9 +66,11 @@ export const authOptions = {
     jwt: true,
   },
   database: process.env.MONGODB_URI,
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     // Modify the session object
     async session({ session, token }) {
+      await connectDB();
       const user = await User.findById(token.sub);
       if (user) {
         session.user.id = user.id;
@@ -82,7 +82,7 @@ export const authOptions = {
   },
 
   // Invoked on successful sign-in
-  async signIn({ profile }) {
+  async signIn({ user, account, profile, email, credentials }) {
     await connectDB();
 
     const userExists = await User.findOne({ email: profile.email });
