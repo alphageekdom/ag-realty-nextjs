@@ -59,7 +59,7 @@ const LoginForm = ({ formData, loading, handleChange, handleSubmit }) => {
       {/* Register Link */}
       <div className='text-center'>
         <p>
-          Don't Have An Account?{' '}
+          Don{`'`}t Have An Account?{' '}
           <Link href={'/register'} className='underline text-cyan-600'>
             Register
           </Link>

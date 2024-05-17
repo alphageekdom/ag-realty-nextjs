@@ -69,7 +69,7 @@ const RegisterCard = () => {
         setLoading(false);
       }
     },
-    [formData, router]
+    [formData, router, validateForm]
   );
 
   const validateForm = useCallback((formData) => {
