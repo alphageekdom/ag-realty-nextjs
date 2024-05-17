@@ -33,7 +33,7 @@ const PropertyContactForm = ({ property }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(sanitizedData),
       });
 
       if (res.status === 200) {
