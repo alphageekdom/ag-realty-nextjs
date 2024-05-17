@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 const LoginForm = ({ formData, loading, handleChange, handleSubmit }) => {
@@ -67,16 +66,6 @@ const LoginForm = ({ formData, loading, handleChange, handleSubmit }) => {
       </div>
     </form>
   );
-};
-
-LoginForm.propTypes = {
-  formData: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-  }).isRequired,
-  loading: PropTypes.bool.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

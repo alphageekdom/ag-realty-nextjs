@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
 
@@ -115,18 +114,6 @@ const RegisterForm = ({ formData, loading, handleChange, handleSubmit }) => {
       </div>
     </form>
   );
-};
-
-RegisterForm.propTypes = {
-  formData: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    confirmPassword: PropTypes.string.isRequired,
-  }).isRequired,
-  loading: PropTypes.bool.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default RegisterForm;

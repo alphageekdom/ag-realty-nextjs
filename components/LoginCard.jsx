@@ -2,8 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { FaGoogle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { signIn, useSession } from 'next-auth/react';
 import DOMPurify from 'dompurify';
