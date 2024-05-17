@@ -51,6 +51,7 @@ export const authOptions = {
       },
     }),
   ],
+  database: process.env.MONGODB_URI,
   callbacks: {
     async signIn({ user, profile }) {
       await connectDB();
