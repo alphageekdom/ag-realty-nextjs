@@ -9,7 +9,7 @@ async function fetchProperties({ showFeatured = false } = {}) {
       return [];
     }
 
-    const endpoint = `${apiDomain}/api/properties${
+    const endpoint = `${apiDomain}/properties${
       showFeatured ? '/featured' : ''
     }`;
 
