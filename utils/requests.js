@@ -5,21 +5,24 @@ async function fetchProperties({ showFeatured = false } = {}) {
   try {
     // Handle if domain is unavailable
     if (!apiDomain) {
+      console.error('API domain is not set.');
       return [];
     }
 
-    const res = await fetch(
-      `${apiDomain}/properties${showFeatured ? '/featured' : ''}`,
-      { cache: 'no-store' }
-    );
+    const endpoint = `${apiDomain}/api/properties${
+      showFeatured ? '/featured' : ''
+    }`;
+
+    const res = await fetch(endpoint, { cache: 'no-store' });
 
     if (!res.ok) {
-      throw new Error('Failed To Fetch Data');
+      const errorDetails = await res.text();
+      throw new Error(`Failed To Fetch Data: ${errorDetails}`);
     }
 
     return res.json();
   } catch (error) {
-    console.log(error);
+    console.error(error.message);
     return [];
   }
 }
@@ -29,18 +32,22 @@ async function fetchProperty(id) {
   try {
     // Handle if domain is unavailable
     if (!apiDomain) {
+      console.error('API domain is not set.');
       return null;
     }
 
-    const res = await fetch(`${apiDomain}/properties/${id}`);
+    const endpoint = `${apiDomain}/api/properties/${id}`;
+
+    const res = await fetch(endpoint);
 
     if (!res.ok) {
-      throw new Error('Failed To Fetch Data');
+      const errorDetails = await res.text();
+      throw new Error(`Failed To Fetch Data: ${errorDetails}`);
     }
 
     return res.json();
   } catch (error) {
-    console.log(error);
+    console.error(error.message);
     return null;
   }
 }
