@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { fetchProperty } from '@/utils/request';
+import { fetchProperty } from '@/utils/requests';
 
 const PropertyEditForm = () => {
   const { id } = useParams();

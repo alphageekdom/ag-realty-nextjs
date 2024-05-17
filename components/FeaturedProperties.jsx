@@ -1,22 +1,10 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { fetchProperties } from '@/utils/request';
+import { fetchProperties } from '@/utils/requests';
 import FeaturedPropertyCard from './FeaturedPropertyCard';
 
-const FeaturedProperties = () => {
-  const [properties, setProperties] = useState([]);
-
-  useEffect(() => {
-    const getProperties = async () => {
-      const fetchedProperties = await fetchProperties({
-        showFeatured: true,
-      });
-      setProperties(fetchedProperties);
-    };
-
-    getProperties();
-  }, []);
+const FeaturedProperties = async () => {
+  const properties = await fetchProperties({
+    showFeatured: true,
+  });
 
   return (
     properties.length > 0 && (
@@ -35,5 +23,4 @@ const FeaturedProperties = () => {
     )
   );
 };
-
 export default FeaturedProperties;

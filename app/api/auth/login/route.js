@@ -1,53 +1,39 @@
 import connectDB from '@/config/database';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
-import { validationResult } from 'express-validator';
 
 export const loginUser = async (email, password) => {
+  await connectDB();
+
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw { statusCode: 401, message: "User Doesn't Exist" };
+    throw { statusCode: 401, message: 'Invalid email or password' };
   }
 
-  // Validate password
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-
-  if (!isPasswordValid) {
-    throw { statusCode: 401, message: 'Invalid Credentials' };
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    throw { statusCode: 401, message: 'Invalid email or password' };
   }
 
-  return user;
+  return { statusCode: 200, message: 'Login Successful', user };
 };
 
 // POST /api/auth/login
 export const POST = async (request) => {
   try {
-    await connectDB();
-
     const { email, password } = await request.json();
-
-    const errors = validationResult(email, password);
-
-    if (!errors.isEmpty()) {
-      return new Response(JSON.stringify({ errors: errors.array() }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    const user = await loginUser(email, password);
-
-    // Return success response
-    return new Response(JSON.stringify({ message: 'Login successful', user }), {
-      status: 200,
+    const response = await loginUser(email, password);
+    return new Response(JSON.stringify(response), {
+      status: response.statusCode,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error(error);
-    return new Response(JSON.stringify({ error: 'Internal server error' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    console.error('Login error:', error);
+    const statusCode = error.statusCode || 500;
+    return new Response(
+      JSON.stringify({ error: error.message || 'Internal Server Error' }),
+      { status: statusCode, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 };

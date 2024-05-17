@@ -1,7 +1,8 @@
 import connectDB from '@/config/database';
 import User from '@/models/User';
-
+import bcrypt from 'bcryptjs';
 import GoogleProvider from 'next-auth/providers/google';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const authOptions = {
   providers: [
@@ -16,36 +17,63 @@ export const authOptions = {
         },
       },
     }),
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: {
+        email: {
+          label: 'Email',
+          type: 'email',
+          placeholder: 'example@example.com',
+        },
+        password: {
+          label: 'Password',
+          type: 'password',
+          placeholder: 'Password',
+        },
+      },
+      async authorize(credentials) {
+        await connectDB();
+
+        const user = await User.findOne({ email: credentials.email });
+        if (!user) {
+          throw new Error('No user found with this email');
+        }
+
+        const isValid = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+        if (!isValid) {
+          throw new Error('Incorrect password');
+        }
+
+        return user;
+      },
+    }),
   ],
   callbacks: {
-    // Invoked on successful signin
-    async signIn({ profile }) {
-      // 1. Connect to database
+    async signIn({ user, profile }) {
       await connectDB();
-      // 2. Check if user exists
-      const userExists = await User.findOne({ email: profile.email });
-      // 3. If not, then add user to database
+      const userExists = await User.findOne({ email: user.email });
       if (!userExists) {
-        // Truncate user name if too long
-        const username = profile.name.slice(0, 20);
-
+        const username = profile.name ? profile.name.slice(0, 20) : 'Anonymous';
         await User.create({
-          email: profile.email,
+          email: user.email,
           username,
           image: profile.picture,
         });
       }
-      // 4. Return true to allow sign in
       return true;
     },
-    // Modifies the session object
     async session({ session }) {
-      // 1. Get user from database
+      await connectDB();
       const user = await User.findOne({ email: session.user.email });
-      // 2. Assign the user id to the session
       session.user.id = user._id.toString();
-      // 3. return session
       return session;
     },
+  },
+  pages: {
+    signIn: '/auth/signin',
+    error: '/auth/error', // Error code passed in query string as ?error=
   },
 };

@@ -58,8 +58,7 @@ const RegisterCard = () => {
         confirmPassword: DOMPurify.sanitize(formData.confirmPassword),
       };
 
-      const isValid = validateForm(sanitizedFormData);
-      if (!isValid) {
+      if (!validateForm(sanitizedFormData)) {
         setLoading(false);
         return;
       }
@@ -70,7 +69,11 @@ const RegisterCard = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(sanitizedFormData),
+          body: JSON.stringify({
+            email: sanitizedFormData.email,
+            username: sanitizedFormData.name,
+            password: sanitizedFormData.password,
+          }),
         });
 
         if (res.ok) {

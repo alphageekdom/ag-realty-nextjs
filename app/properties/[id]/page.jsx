@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { fetchProperty } from '@/utils/request';
+import { fetchProperty } from '@/utils/requests';
 import PropertyHeaderImage from '@/components/PropertyHeaderImage';
 import Link from 'next/link';
 import PropertyDetails from '@/components/PropertyDetails';

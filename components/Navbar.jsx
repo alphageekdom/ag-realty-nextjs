@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/images/logo-white.png';
 import profileDefault from '@/assets/images/profile.png';
+import { useRouter } from 'next/navigation';
 import { FaGoogle, FaInbox, FaEnvelope } from 'react-icons/fa';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import UnreadMessageCount from './UnreadMessageCount';
@@ -13,6 +14,8 @@ import UnreadMessageCount from './UnreadMessageCount';
 const Navbar = () => {
   const { data: session, status } = useSession();
   const profileImage = session?.user?.image;
+
+  const router = useRouter();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -128,16 +131,29 @@ const Navbar = () => {
           {/* Right Side Menu (Logged Out) */}
           {!session && (
             <div className='hidden md:block md:ml-6'>
-              <div className='flex items-center'>
+              <div className='flex items-center gap-3'>
                 {providers &&
                   Object.values(providers).map((provider, index) => (
                     <button
-                      onClick={() => signIn(provider.id)}
+                      onClick={() =>
+                        provider.id === 'credentials'
+                          ? router.push('/login')
+                          : signIn(provider.id)
+                      }
                       key={index}
                       className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
                     >
-                      <FaGoogle className='text-white mr-2' />
-                      <span>Login or Register</span>
+                      {provider.id === 'credentials' ? (
+                        <>
+                          <FaEnvelope className='text-white mr-2' />
+                          <span>Login with Email</span>
+                        </>
+                      ) : (
+                        <>
+                          <FaGoogle className='text-white mr-2' />
+                          <span>Login with Google</span>
+                        </>
+                      )}
                     </button>
                   ))}
               </div>

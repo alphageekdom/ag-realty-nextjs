@@ -1,58 +1,45 @@
 import connectDB from '@/config/database';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
-import { validationResult } from 'express-validator';
+import { NextResponse } from 'next/server';
 
-const saltRounds = 12;
-
-export const registerUser = async (email, name, password) => {
-  await connectDB();
-
-  // Validate input
-  const errors = validationResult({ email, name, password });
-  if (!errors.isEmpty()) {
-    throw {
-      statusCode: 400,
-      message: 'Validation failed',
-      errors: errors.array(),
-    };
-  }
-
-  // Check if user already exists
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    throw { statusCode: 409, message: 'Email already in use' };
-  }
-
-  // Hash password
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-  // Create new user
-  const newUser = new User({
-    name,
-    email,
-    password: hashedPassword,
-  });
-
-  await newUser.save();
-  return { statusCode: 200, message: 'Registration Successful' };
-};
-
-// POST /api/register
-export const POST = async (request) => {
+export async function POST(req) {
   try {
-    const { email, name, password } = await request.json();
-    const response = await registerUser(email, name, password);
-    return new Response(JSON.stringify(response), {
-      status: response.statusCode,
-      headers: { 'Content-Type': 'application/json' },
+    await connectDB();
+
+    const { email, password, username } = await req.json();
+
+    if (!email || !password || !username) {
+      return NextResponse.json(
+        { message: 'Email, password, and username are required' },
+        { status: 400 }
+      );
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return NextResponse.json(
+        { message: 'User already exists' },
+        { status: 400 }
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await User.create({
+      email,
+      password: hashedPassword,
+      username,
     });
+
+    return NextResponse.json(
+      { message: 'User registered successfully', user: newUser },
+      { status: 201 }
+    );
   } catch (error) {
-    console.error('Registration error:', error);
-    const statusCode = error.statusCode || 500;
-    return new Response(
-      JSON.stringify({ error: error.message || 'Internal Server Error' }),
-      { status: statusCode, headers: { 'Content-Type': 'application/json' } }
+    return NextResponse.json(
+      { message: 'Server error', error: error.message },
+      { status: 500 }
     );
   }
-};
+}
