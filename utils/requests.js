@@ -1,48 +1,37 @@
 const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
 
-// Fetch All Properties
-async function fetchProperties({ showFeatured = false } = {}) {
-  try {
-    // Handle if domain is unavailable
-    if (!apiDomain) {
-      return [];
-    }
+async function fetchFromApi(endpoint, options = {}) {
+  if (!apiDomain) {
+    console.warn('API domain is unavailable');
+    return null;
+  }
 
-    const res = await fetch(
-      `${apiDomain}/properties${showFeatured ? '/featured' : ''}`,
-      { cache: 'no-store' }
-    );
+  try {
+    const res = await fetch(`${apiDomain}${endpoint}`, options);
 
     if (!res.ok) {
-      throw new Error(`Failed To Fetch Data: ${errorDetails}`);
+      const errorDetails = await res.text();
+      throw new Error(
+        `Failed to fetch data: ${res.status} ${res.statusText} - ${errorDetails}`
+      );
     }
 
     return res.json();
   } catch (error) {
-    console.error(error);
-    return [];
+    console.error(`Error fetching from API: ${error.message}`);
+    return null;
   }
 }
 
-// Fetch Single Property
+async function fetchProperties({ showFeatured = false } = {}) {
+  const endpoint = `/properties${showFeatured ? '/featured' : ''}`;
+  const options = { cache: 'no-store' };
+  return fetchFromApi(endpoint, options) || [];
+}
+
 async function fetchProperty(id) {
-  try {
-    // Handle if domain is unavailable
-    if (!apiDomain) {
-      return null;
-    }
-
-    const res = await fetch(`${apiDomain}/properties/${id}`);
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch data');
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+  const endpoint = `/properties/${id}`;
+  return fetchFromApi(endpoint) || null;
 }
 
 export { fetchProperties, fetchProperty };
