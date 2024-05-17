@@ -132,28 +132,12 @@ const Navbar = () => {
                 {providers &&
                   Object.values(providers).map((provider, index) => (
                     <button
-                      onClick={() => {
-                        if (provider.id === 'google') {
-                          signIn(provider.id);
-                        } else if (provider.id === 'credentials') {
-                          // Navigate to '/auth/login' page
-                          window.location.href = '/login';
-                        }
-                      }}
+                      onClick={() => signIn(provider.id)}
                       key={index}
-                      className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 mr-2'
+                      className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
                     >
-                      {provider.id === 'google' ? (
-                        <>
-                          <FaGoogle className='text-white mr-2' />
-                          <span>Login/Register</span>
-                        </>
-                      ) : provider.id === 'credentials' ? (
-                        <>
-                          <FaEnvelope className='text-white mr-2' />
-                          <span>Login/Register</span>
-                        </>
-                      ) : null}
+                      <FaGoogle className='text-white mr-2' />
+                      <span>Login or Register</span>
                     </button>
                   ))}
               </div>
