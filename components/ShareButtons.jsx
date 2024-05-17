@@ -8,8 +8,8 @@ import {
   WhatsappIcon,
   EmailIcon,
 } from 'react-share';
-const ShareButtons = ({ property }) => {
-  const shareUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/properties/${property._id}`;
+const ShareButtons = ({ property, PUBLIC_DOMAIN }) => {
+  const shareUrl = `${PUBLIC_DOMAIN}/properties/${property._id}`;
   return (
     <>
       <h3 className='text-xl font-bold text-center pt-2'>
