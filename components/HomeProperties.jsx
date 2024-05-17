@@ -1,13 +1,16 @@
-import PropertyCard from '@/components/PropertyCard';
 import Link from 'next/link';
-import { fetchProperties } from '@/utils/requests';
+import PropertyCard from '@/components/PropertyCard';
+import connectDB from '@/config/database';
+import Property from '@/models/Property';
 
 const HomeProperties = async () => {
-  const data = await fetchProperties();
+  await connectDB();
 
-  const recentProperties = Array.isArray(data?.properties)
-    ? data.properties.sort(() => Math.random() - Math.random()).slice(0, 3)
-    : [];
+  // Get the 3 latest properties
+  const recentProperties = await Property.find({})
+    .sort({ createdAt: -1 })
+    .limit(3)
+    .lean();
 
   return (
     <>

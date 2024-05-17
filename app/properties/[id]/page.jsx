@@ -29,6 +29,8 @@ const PropertyPage = async ({ params }) => {
   // components
   const property = convertToSerializeableObject(propertyDoc);
 
+  console.log(property);
+
   if (!property) {
     return (
       <h1 className='text-center text-2xl font-bold mt-10'>
