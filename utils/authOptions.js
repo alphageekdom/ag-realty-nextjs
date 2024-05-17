@@ -82,21 +82,23 @@ export const authOptions = {
   },
 
   // Invoked on successful sign-in
-  async signIn({ user, account, profile, email, credentials }) {
+  async signIn({ user }) {
+    // Connect to database
     await connectDB();
-
-    const userExists = await User.findOne({ email: profile.email });
-
+    // Check if user exists
+    const userExists = await User.findOne({ email: user.email });
+    // User does not exist, add to database
     if (!userExists) {
       // Truncate username if too long
-      const name = profile.username.slice(0, 20);
+      const name = user.name.slice(0, 20);
 
       await User.create({
-        email: profile.email,
+        email: user.email,
         name,
-        image: profile.picture,
+        image: user.picture,
       });
     }
+    // Return true to allow sign-in
     return true;
   },
 };
