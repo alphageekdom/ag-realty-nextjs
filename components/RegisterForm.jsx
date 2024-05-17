@@ -12,7 +12,7 @@ const RegisterForm = ({ formData, loading, handleChange, handleSubmit }) => {
       <div className='mb-4'>
         <button
           className='bg-gray-700 hover:bg-black text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center'
-          type='submit'
+          type='button' // Changed to button to prevent form submission
         >
           <FaGoogle className='text-white mr-2' />
           Register with Google

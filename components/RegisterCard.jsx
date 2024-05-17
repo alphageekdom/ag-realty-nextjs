@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import DOMPurify from 'dompurify';
-import RegisterForm from './RegisterForm';
+import RegisterForm from '@/components/RegisterForm';
 
 const RegisterCard = () => {
   const router = useRouter();
@@ -26,6 +26,26 @@ const RegisterCard = () => {
     }));
   }, []);
 
+  const validateForm = useCallback((formData) => {
+    if (formData.password !== formData.confirmPassword) {
+      toast.error('Passwords do not match');
+      return false;
+    }
+
+    if (formData.password.length < 6) {
+      toast.error('Password must be at least 6 characters long');
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error('Invalid email address');
+      return false;
+    }
+
+    return true;
+  }, []);
+
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
@@ -45,7 +65,7 @@ const RegisterCard = () => {
       }
 
       try {
-        const res = await fetch('/api/auth/register', {
+        const res = await fetch('/api/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -72,35 +92,13 @@ const RegisterCard = () => {
     [formData, router, validateForm]
   );
 
-  const validateForm = useCallback((formData) => {
-    if (formData.password !== formData.confirmPassword) {
-      toast.error('Passwords do not match');
-      return false;
-    }
-
-    if (formData.password.length < 6) {
-      toast.error('Password must be at least 6 characters long');
-      return false;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      toast.error('Invalid email address');
-      return false;
-    }
-
-    return true;
-  }, []);
-
   return (
-    <>
-      <RegisterForm
-        formData={formData}
-        loading={loading}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-      />
-    </>
+    <RegisterForm
+      formData={formData}
+      loading={loading}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+    />
   );
 };
 
