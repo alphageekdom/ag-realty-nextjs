@@ -9,8 +9,6 @@ const FeaturedPropertiesPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log(properties);
-
   useEffect(() => {
     const loadProperties = async () => {
       try {
