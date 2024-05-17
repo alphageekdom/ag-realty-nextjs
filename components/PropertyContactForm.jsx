@@ -15,13 +15,32 @@ const PropertyContactForm = ({ property }) => {
   const [phone, setPhone] = useState('');
   const [wasSubmitted, setWasSubmitted] = useState(false);
 
+  const formatPhoneNumber = (value) => {
+    if (!value) return value;
+    const phoneNumber = value.replace(/[^\d]/g, '');
+    const phoneNumberLength = phoneNumber.length;
+    if (phoneNumberLength < 4) return phoneNumber;
+    if (phoneNumberLength < 7) {
+      return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+    }
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
+      3,
+      6
+    )}-${phoneNumber.slice(6, 10)}`;
+  };
+
+  const handlePhoneChange = (e) => {
+    const formattedPhoneNumber = formatPhoneNumber(e.target.value);
+    setPhone(formattedPhoneNumber);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const sanitizedData = {
       name: DOMPurify.sanitize(name),
       email: DOMPurify.sanitize(email),
-      phone: DOMPurify.sanitize(phone),
+      phone: DOMPurify.sanitize(phone).replace(/[^\d]/g, ''),
       message: DOMPurify.sanitize(message),
       recipient: property.owner,
       property: property._id,
@@ -56,11 +75,16 @@ const PropertyContactForm = ({ property }) => {
     }
   };
 
+  // Check if the logged-in user is the owner of the property
+  const isOwner = session?.user?.id === property.owner;
+
   return (
     <div className='bg-white p-6 rounded-lg shadow-md'>
       <h3 className='text-xl font-bold mb-6'>Contact Property Manager</h3>
       {!session ? (
         <p>You Must Be Logged In To Send A Message</p>
+      ) : isOwner ? (
+        <p>You own this listing.</p>
       ) : wasSubmitted ? (
         <p className='text-green-500 mb-4'>Message Sent Successfully</p>
       ) : (
@@ -112,7 +136,7 @@ const PropertyContactForm = ({ property }) => {
               type='text'
               placeholder='Enter your phone number'
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={handlePhoneChange}
             />
           </div>
           <div className='mb-4'>

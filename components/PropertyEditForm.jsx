@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { fetchProperty } from '@/utils/requests';
 
 const PropertyEditForm = () => {
   const { id } = useParams();
@@ -44,7 +43,9 @@ const PropertyEditForm = () => {
     // Fetch property data for form
     const fetchPropertyData = async () => {
       try {
-        const propertyData = await fetchProperty(id);
+        const res = await fetch(`/api/properties/${id}`);
+
+        const propertyData = await res.json();
 
         // Check rates for null, then make empty str
         if (propertyData && propertyData.rates) {
@@ -61,6 +62,7 @@ const PropertyEditForm = () => {
         setFields(propertyData);
       } catch (error) {
         console.error(error);
+        toast.error('Failed to fetch property data.');
       } finally {
         setLoading(false);
       }
@@ -122,6 +124,8 @@ const PropertyEditForm = () => {
 
     try {
       const formData = new FormData(e.target);
+
+      console.log(formData);
 
       const res = await fetch(`/api/properties/${id}`, {
         method: 'PUT',

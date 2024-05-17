@@ -1,23 +1,24 @@
 [
   {
     "owner": "1",
-    "name": "Boston Commons Retreat",
-    "type": "Apartment",
-    "description": "This is a beautiful apartment located near the commons. It is a 2 bedroom apartment with a full kitchen and bathroom. It is available for weekly or monthly rentals.",
+    "name": "Oceanfront Paradise Villa",
+    "type": "House",
+    "description": "Enjoy breathtaking ocean views in this luxurious beachfront villa. Perfect for family vacations, offering spacious living areas, modern amenities, and a private pool.",
     "location": {
-      "street": "120 Tremont Street",
-      "city": "Boston",
-      "state": "MA",
-      "zipcode": "02108"
+      "street": "100 Ocean Drive",
+      "city": "Santa Monica",
+      "state": "CA",
+      "zipcode": "90401"
     },
-    "beds": 2,
-    "baths": 1,
-    "square_feet": 1500,
+    "beds": 4,
+    "baths": 3,
+    "square_feet": 3000,
     "amenities": [
       "Wifi",
       "Full kitchen",
       "Washer & Dryer",
       "Free Parking",
+      "Swimming Pool",
       "Hot Tub",
       "24/7 Security",
       "Wheelchair Accessible",
@@ -27,16 +28,18 @@
       "Air Conditioning",
       "Balcony/Patio",
       "Smart TV",
-      "Coffee Maker"
+      "Coffee Maker",
+      "Fireplace",
+      "Outdoor Grill/BBQ"
     ],
     "rates": {
-      "weekly": 1100,
-      "monthly": 4200
+      "nightly": 600,
+      "weekly": 3000
     },
     "seller_info": {
-      "name": "John Doe",
-      "email": "john@gmail.com",
-      "phone": "617-555-5555"
+      "name": "Emma Watson",
+      "email": "emma.watson@rentals.com",
+      "phone": "310-555-1234"
     },
     "images": ["a1.jpg", "a2.jpg", "a3.jpg"],
     "isFeatured": false,
@@ -45,119 +48,125 @@
   },
   {
     "owner": "1",
-    "name": "Cozy Downtown Loft",
+    "name": "Downtown San Francisco Loft",
     "type": "Apartment",
-    "description": "A cozy downtown loft with great city views.",
+    "description": "A chic urban loft located in the heart of San Francisco. Ideal for business travelers or couples, featuring high-end furnishings and all the comforts of home.",
     "location": {
-      "street": "45 Main Street",
-      "city": "New York",
-      "state": "NY",
-      "zipcode": "10001"
+      "street": "150 Main Street",
+      "city": "San Francisco",
+      "state": "CA",
+      "zipcode": "94101"
     },
-    "beds": 1,
-    "baths": 1,
+    "beds": 2,
+    "baths": 2,
+    "square_feet": 1200,
+    "amenities": [
+      "Wifi",
+      "High-Speed Internet",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "24/7 Security",
+      "Wheelchair Accessible",
+      "Elevator Access",
+      "Dishwasher",
+      "Air Conditioning",
+      "Smart TV",
+      "Coffee Maker"
+    ],
+    "rates": {
+      "weekly": 2000,
+      "monthly": 7000
+    },
+    "seller_info": {
+      "name": "John Carter",
+      "email": "john.carter@rentals.com",
+      "phone": "415-555-5678"
+    },
+    "images": ["b1.jpg", "b2.jpg", "b3.jpg", "b4.jpg"],
+    "isFeatured": false,
+    "createdAt": "2024-01-02T00:00:00.000Z",
+    "updatedAt": "2024-01-02T00:00:00.000Z"
+  },
+  {
+    "owner": "1",
+    "name": "San Diego Urban Retreat",
+    "type": "Condo",
+    "description": "Stylish downtown condo with modern amenities and easy access to the best of San Diego. Perfect for families or small groups looking for comfort and convenience.",
+    "location": {
+      "street": "500 Market Street",
+      "city": "San Diego",
+      "state": "CA",
+      "zipcode": "92101"
+    },
+    "beds": 3,
+    "baths": 2,
+    "square_feet": 1500,
+    "amenities": [
+      "Wifi",
+      "High-Speed Internet",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Swimming Pool",
+      "Hot Tub",
+      "24/7 Security",
+      "Wheelchair Accessible",
+      "Elevator Access",
+      "Dishwasher",
+      "Gym/Fitness Center",
+      "Air Conditioning",
+      "Balcony/Patio",
+      "Smart TV",
+      "Coffee Maker"
+    ],
+    "rates": {
+      "weekly": 2500,
+      "monthly": 8500
+    },
+    "seller_info": {
+      "name": "Sarah Brown",
+      "email": "sarahb89@gmail.com",
+      "phone": "619-555-2345"
+    },
+    "images": ["c1.jpg", "c2.jpg", "c3.jpg", "c4.jpg"],
+    "isFeatured": false,
+    "createdAt": "2024-01-03T00:00:00.000Z",
+    "updatedAt": "2024-01-03T00:00:00.000Z"
+  },
+  {
+    "owner": "1",
+    "name": "Lake Tahoe Mountain Escape",
+    "type": "Cottage Or Cabin",
+    "description": "Nestled in the mountains of Lake Tahoe, this retreat offers tranquility and stunning views. Perfect for outdoor enthusiasts and those seeking a peaceful getaway.",
+    "location": {
+      "street": "800 Mountain Road",
+      "city": "Lake Tahoe",
+      "state": "CA",
+      "zipcode": "96150"
+    },
+    "beds": 3,
+    "baths": 2,
     "square_feet": 1800,
     "amenities": [
       "Wifi",
       "Full kitchen",
       "Washer & Dryer",
       "Free Parking",
-      "Hot Tub",
-      "24/7 Security",
-      "Wheelchair Accessible",
-      "Elevator Access",
-      "Dishwasher",
-      "High-Speed Internet",
-      "Air Conditioning",
+      "Balcony/Patio",
       "Smart TV",
+      "Coffee Maker",
+      "Fireplace",
       "Outdoor Grill/BBQ"
     ],
     "rates": {
-      "weekly": 1000,
-      "monthly": 4000
+      "nightly": 400,
+      "weekly": 2200
     },
     "seller_info": {
-      "name": "Jane Smith",
-      "email": "jane@gmail.com",
-      "phone": "212-555-5555"
-    },
-    "images": ["b1.jpg", "b2.jpg", "b3.jpg"],
-    "isFeatured": false,
-    "createdAt": "2024-01-02T00:00:00.000Z",
-    "updatedAt": "2024-01-02T00:00:00.000Z"
-  },
-  {
-    "owner": "2",
-    "name": "Luxury Condo with a View",
-    "type": "Condo",
-    "description": "Experience luxury in this stunning condo with breathtaking views.",
-    "location": {
-      "street": "500 Lux Lane",
-      "city": "Los Angeles",
-      "state": "CA",
-      "zipcode": "90001"
-    },
-    "beds": 3,
-    "baths": 2,
-    "square_feet": 2200,
-    "amenities": [
-      "Wifi",
-      "Full kitchen",
-      "Washer & Dryer",
-      "Free Parking",
-      "Hot Tub",
-      "24/7 Security",
-      "Wheelchair Accessible",
-      "Elevator Access",
-      "Dishwasher",
-      "Swimming Pool",
-      "Gym/Fitness Center",
-      "Air Conditioning",
-      "Smart TV",
-      "Coffee Maker"
-    ],
-    "rates": {
-      "nightly": 200,
-      "weekly": 750,
-      "monthly": 3300
-    },
-    "seller_info": {
-      "name": "David Johnson",
-      "email": "david@gmail.com",
-      "phone": "213-555-5555"
-    },
-    "images": ["c1.jpg", "c2.jpg", "c3.jpg"],
-    "isFeatured": false,
-    "createdAt": "2024-01-03T00:00:00.000Z",
-    "updatedAt": "2024-01-03T00:00:00.000Z"
-  },
-  {
-    "owner": "2",
-    "name": "Charming Cottage Getaway",
-    "type": "Cottage Or Cabin",
-    "description": "Escape to this charming cottage for a peaceful retreat.",
-    "location": {
-      "street": "123 Countryside Lane",
-      "city": "Austin",
-      "state": "TX",
-      "zipcode": "78701"
-    },
-    "beds": 1,
-    "baths": 1,
-    "square_feet": 900,
-    "amenities": [
-      "Fireplace",
-      "Outdoor Grill/BBQ",
-      "Balcony/Patio",
-      "Coffee Maker"
-    ],
-    "rates": {
-      "weekly": 2000
-    },
-    "seller_info": {
-      "name": "Emily Davis",
-      "email": "emily@gmail.com",
-      "phone": "512-555-5555"
+      "name": "James Miller",
+      "email": "jimmills@gmail.com",
+      "phone": "530-555-8765"
     },
     "images": ["d1.jpg", "d2.jpg", "d3.jpg"],
     "isFeatured": false,
@@ -165,34 +174,40 @@
     "updatedAt": "2024-01-04T00:00:00.000Z"
   },
   {
-    "owner": "3",
-    "name": "Modern Downtown Studio",
-    "type": "Studio",
-    "description": "Stay in style in this modern downtown studio apartment.",
+    "owner": "1",
+    "name": "Sunny Suburban Home",
+    "type": "House",
+    "description": "Bright and spacious home in Pasadena, perfect for families. Enjoy the private pool, modern kitchen, and cozy living spaces in a quiet suburban neighborhood.",
     "location": {
-      "street": "75 Urban Avenue",
-      "city": "Chicago",
-      "state": "IL",
-      "zipcode": "60601"
+      "street": "200 Sunset Boulevard",
+      "city": "Pasadena",
+      "state": "CA",
+      "zipcode": "91101"
     },
-    "beds": 1,
-    "baths": 1,
-    "square_feet": 900,
+    "beds": 4,
+    "baths": 3,
+    "square_feet": 2500,
     "amenities": [
-      "High-Speed Internet",
-      "Smart TV",
+      "Wifi",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Swimming Pool",
+      "Hot Tub",
       "Air Conditioning",
-      "Gym/Fitness Center",
+      "Balcony/Patio",
+      "Smart TV",
+      "Coffee Maker",
       "Outdoor Grill/BBQ"
     ],
     "rates": {
-      "weekly": 1100,
-      "monthly": 4200
+      "weekly": 1500,
+      "monthly": 6000
     },
     "seller_info": {
-      "name": "Michael Brown",
-      "email": "michael@gmail.com",
-      "phone": "312-555-5555"
+      "name": "Olivia Davis",
+      "email": "ollied@gmail.com",
+      "phone": "626-555-7890"
     },
     "images": ["e1.jpg", "e2.jpg", "e3.jpg"],
     "isFeatured": true,
@@ -200,24 +215,36 @@
     "updatedAt": "2024-01-05T00:00:00.000Z"
   },
   {
-    "owner": "3",
-    "name": "Seaside Retreat",
+    "owner": "2",
+    "name": "Spacious Ranch House",
     "type": "House",
-    "description": "Escape to this seaside house for a relaxing getaway.",
+    "description": "A spacious and luxurious ranch house in Dallas, ideal for large families or groups. Enjoy the private pool, expansive living areas, and serene countryside views.",
     "location": {
-      "street": "456 Oceanfront Drive",
-      "city": "Miami",
-      "state": "FL",
-      "zipcode": "33101"
+      "street": "123 Country Road",
+      "city": "Dallas",
+      "state": "TX",
+      "zipcode": "75001"
     },
-    "beds": 4,
-    "baths": 3,
-    "square_feet": 2800,
+    "beds": 5,
+    "baths": 4,
+    "square_feet": 3500,
     "amenities": [
-      "Beach Access",
+      "Wifi",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
       "Swimming Pool",
+      "Hot Tub",
+      "24/7 Security",
+      "Wheelchair Accessible",
+      "Elevator Access",
+      "Dishwasher",
+      "Gym/Fitness Center",
+      "Air Conditioning",
       "Balcony/Patio",
       "Smart TV",
+      "Coffee Maker",
+      "Fireplace",
       "Outdoor Grill/BBQ"
     ],
     "rates": {
@@ -225,9 +252,9 @@
       "weekly": 2500
     },
     "seller_info": {
-      "name": "Sarah Wilson",
-      "email": "sarah@gmail.com",
-      "phone": "305-555-5555"
+      "name": "Mark Wilson",
+      "email": "mark.wilson@rentals.com",
+      "phone": "214-555-4321"
     },
     "images": ["f1.jpg", "f2.jpg", "f3.jpg"],
     "isFeatured": true,
@@ -235,33 +262,40 @@
     "updatedAt": "2024-01-06T00:00:00.000Z"
   },
   {
-    "owner": "4",
-    "name": "Rustic Cabin in the Woods",
-    "type": "Cottage Or Cabin",
-    "description": "Experience nature in this cozy rustic cabin.",
+    "owner": "2",
+    "name": "Austin City Loft",
+    "type": "Apartment",
+    "description": "Modern loft apartment in the vibrant city of Austin. Perfect for business trips or vacations, with easy access to the best local attractions and dining.",
     "location": {
-      "street": "789 Forest Lane",
-      "city": "Denver",
-      "state": "CO",
-      "zipcode": "80201"
+      "street": "200 Main Street",
+      "city": "Austin",
+      "state": "TX",
+      "zipcode": "78701"
     },
     "beds": 2,
-    "baths": 1,
+    "baths": 2,
     "square_feet": 1100,
     "amenities": [
-      "Fireplace",
-      "Outdoor Grill/BBQ",
-      "Hiking Trails Access",
-      "Pet-Friendly"
+      "Wifi",
+      "High-Speed Internet",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "24/7 Security",
+      "Elevator Access",
+      "Dishwasher",
+      "Air Conditioning",
+      "Smart TV",
+      "Coffee Maker"
     ],
     "rates": {
-      "nightly": 475,
-      "weekly": 2000
+      "weekly": 1200,
+      "monthly": 4500
     },
     "seller_info": {
-      "name": "Robert Anderson",
-      "email": "robert@gmail.com",
-      "phone": "303-555-5555"
+      "name": "Angela Lee",
+      "email": "angela.lee@rentals.com",
+      "phone": "512-555-6789"
     },
     "images": ["g1.jpg", "g2.jpg", "g3.jpg"],
     "isFeatured": false,
@@ -269,33 +303,40 @@
     "updatedAt": "2024-01-07T00:00:00.000Z"
   },
   {
-    "owner": "5",
-    "name": "Ski-In/Ski-Out Chalet",
-    "type": "Chalet",
-    "description": "Hit the slopes from this cozy ski-in/ski-out chalet.",
+    "owner": "2",
+    "name": "Houston Heritage House",
+    "type": "House",
+    "description": "Historic home in downtown Houston with charming architectural details and modern comforts. Ideal for families or groups looking to explore the city's history.",
     "location": {
-      "street": "321 Mountain Road",
-      "city": "Aspen",
-      "state": "CO",
-      "zipcode": "81611"
+      "street": "300 Old Town Road",
+      "city": "Houston",
+      "state": "TX",
+      "zipcode": "77001"
     },
-    "beds": 3,
-    "baths": 2,
-    "square_feet": 1800,
+    "beds": 4,
+    "baths": 3,
+    "square_feet": 2400,
     "amenities": [
-      "Ski Equipment Storage",
-      "Fireplace",
+      "Wifi",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Hot Tub",
+      "Air Conditioning",
       "Balcony/Patio",
-      "Smart TV"
+      "Smart TV",
+      "Coffee Maker",
+      "Fireplace",
+      "Outdoor Grill/BBQ"
     ],
     "rates": {
-      "nightly": 300,
-      "weekly": 1100
+      "weekly": 1600,
+      "monthly": 5000
     },
     "seller_info": {
-      "name": "Jennifer Martin",
-      "email": "jennifer@gmail.com",
-      "phone": "970-555-5555"
+      "name": "Kevin Young",
+      "email": "kevin.young@rentals.com",
+      "phone": "713-555-2345"
     },
     "images": ["h1.jpg", "h2.jpg", "h3.jpg"],
     "isFeatured": false,
@@ -303,34 +344,40 @@
     "updatedAt": "2024-01-08T00:00:00.000Z"
   },
   {
-    "owner": "6",
-    "name": "Mountain View Retreat",
-    "type": "House",
-    "description": "Enjoy stunning mountain views from this spacious retreat.",
+    "owner": "2",
+    "name": "Fort Worth Lake House",
+    "type": "Cottage",
+    "description": "Beautiful lakefront cottage in Fort Worth, perfect for a relaxing getaway. Enjoy water activities and scenic views, with all the comforts of home.",
     "location": {
-      "street": "600 Summit Drive",
-      "city": "Boulder",
-      "state": "CO",
-      "zipcode": "80301"
+      "street": "400 Lake Drive",
+      "city": "Fort Worth",
+      "state": "TX",
+      "zipcode": "76101"
     },
-    "beds": 4,
-    "baths": 3,
-    "square_feet": 2400,
+    "beds": 3,
+    "baths": 2,
+    "square_feet": 1600,
     "amenities": [
-      "Mountain View",
-      "Hiking Trails Access",
+      "Wifi",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Swimming Pool",
+      "Hot Tub",
       "Air Conditioning",
+      "Balcony/Patio",
       "Smart TV",
+      "Coffee Maker",
       "Outdoor Grill/BBQ"
     ],
     "rates": {
-      "weekly": 1000,
-      "monthly": 3800
+      "weekly": 1300,
+      "monthly": 4600
     },
     "seller_info": {
-      "name": "Lisa Taylor",
-      "email": "lisa@gmail.com",
-      "phone": "303-555-5555"
+      "name": "Nancy King",
+      "email": "nancy.king@rentals.com",
+      "phone": "817-555-3456"
     },
     "images": ["i1.jpg", "i2.jpg", "i3.jpg"],
     "isFeatured": false,
@@ -338,37 +385,479 @@
     "updatedAt": "2024-01-09T00:00:00.000Z"
   },
   {
-    "owner": "7",
-    "name": "Historic Downtown Loft",
-    "type": "Apartment",
-    "description": "Step back in time with a stay in this historic downtown loft.",
+    "owner": "2",
+    "name": "San Antonio Skyline Condo",
+    "type": "Condo",
+    "description": "Experience luxury living in this high-rise condo with stunning city views. Enjoy top-notch amenities and the convenience of downtown San Antonio.",
     "location": {
-      "street": "123 History Lane",
-      "city": "Philadelphia",
-      "state": "PA",
-      "zipcode": "19101"
+      "street": "500 Sky Tower",
+      "city": "San Antonio",
+      "state": "TX",
+      "zipcode": "78201"
     },
     "beds": 2,
-    "baths": 1,
-    "square_feet": 1200,
+    "baths": 2,
+    "square_feet": 1300,
     "amenities": [
+      "Wifi",
       "High-Speed Internet",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "24/7 Security",
+      "Wheelchair Accessible",
+      "Elevator Access",
+      "Dishwasher",
+      "Gym/Fitness Center",
       "Air Conditioning",
+      "Balcony/Patio",
       "Smart TV",
       "Coffee Maker"
     ],
     "rates": {
-      "weekly": 550,
-      "monthly": 2100
+      "weekly": 1800,
+      "monthly": 7000
     },
     "seller_info": {
-      "name": "Matthew Harris",
-      "email": "matthew@gmail.com",
-      "phone": "215-555-5555"
+      "name": "Richard Adams",
+      "email": "richard.adams@rentals.com",
+      "phone": "210-555-9876"
     },
     "images": ["j1.jpg", "j2.jpg", "j3.jpg"],
     "isFeatured": false,
     "createdAt": "2024-01-10T00:00:00.000Z",
     "updatedAt": "2024-01-10T00:00:00.000Z"
+  },
+  {
+    "owner": "3",
+    "name": "Las Vegas Luxury Suite",
+    "type": "Apartment",
+    "description": "Glamorous suite located on the Las Vegas Strip, perfect for a luxurious vacation with top-notch amenities and easy access to the city's best attractions.",
+    "location": {
+      "street": "123 Strip Boulevard",
+      "city": "Las Vegas",
+      "state": "NV",
+      "zipcode": "89109"
+    },
+    "beds": 2,
+    "baths": 2,
+    "square_feet": 1500,
+    "amenities": [
+      "Wifi",
+      "High-Speed Internet",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Swimming Pool",
+      "Hot Tub",
+      "24/7 Security",
+      "Wheelchair Accessible",
+      "Elevator Access",
+      "Dishwasher",
+      "Gym/Fitness Center",
+      "Air Conditioning",
+      "Smart TV",
+      "Coffee Maker",
+      "Outdoor Grill/BBQ"
+    ],
+    "rates": {
+      "nightly": 500,
+      "weekly": 2500
+    },
+    "seller_info": {
+      "name": "Laura Martinez",
+      "email": "laura.martinez@rentals.com",
+      "phone": "702-555-1234"
+    },
+    "images": ["k1.jpg", "k2.jpg", "k3.jpg"],
+    "isFeatured": true,
+    "createdAt": "2024-01-11T00:00:00.000Z",
+    "updatedAt": "2024-01-11T00:00:00.000Z"
+  },
+  {
+    "owner": "3",
+    "name": "Henderson Desert Oasis",
+    "type": "House",
+    "description": "A serene and luxurious home in Henderson, offering a private pool and beautiful desert landscapes. Ideal for a peaceful and relaxing vacation.",
+    "location": {
+      "street": "200 Oasis Drive",
+      "city": "Henderson",
+      "state": "NV",
+      "zipcode": "89014"
+    },
+    "beds": 3,
+    "baths": 2,
+    "square_feet": 1800,
+    "amenities": [
+      "Wifi",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Swimming Pool",
+      "Hot Tub",
+      "24/7 Security",
+      "Wheelchair Accessible",
+      "Elevator Access",
+      "Dishwasher",
+      "Gym/Fitness Center",
+      "Air Conditioning",
+      "Balcony/Patio",
+      "Smart TV",
+      "Coffee Maker",
+      "Fireplace",
+      "Outdoor Grill/BBQ"
+    ],
+    "rates": {
+      "weekly": 1500,
+      "monthly": 5000
+    },
+    "seller_info": {
+      "name": "Robert Johnson",
+      "email": "robert.johnson@rentals.com",
+      "phone": "702-555-2345"
+    },
+    "images": ["l1.jpg", "l2.jpg", "l3.jpg"],
+    "isFeatured": false,
+    "createdAt": "2024-01-12T00:00:00.000Z",
+    "updatedAt": "2024-01-12T00:00:00.000Z"
+  },
+  {
+    "owner": "3",
+    "name": "Lake Tahoe Cabin Retreat",
+    "type": "Cabin",
+    "description": "Cozy cabin with stunning mountain views, perfect for a Lake Tahoe getaway. Enjoy the fireplace and outdoor activities in this charming retreat.",
+    "location": {
+      "street": "300 Mountain Road",
+      "city": "Lake Tahoe",
+      "state": "NV",
+      "zipcode": "89449"
+    },
+    "beds": 3,
+    "baths": 2,
+    "square_feet": 1600,
+    "amenities": [
+      "Wifi",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Balcony/Patio",
+      "Coffee Maker",
+      "Smart TV",
+      "Fireplace",
+      "Outdoor Grill/BBQ"
+    ],
+    "rates": {
+      "nightly": 300,
+      "weekly": 1400
+    },
+    "seller_info": {
+      "name": "Patricia White",
+      "email": "patricia.white@rentals.com",
+      "phone": "775-555-3456"
+    },
+    "images": ["m1.jpg", "m2.jpg", "m3.jpg"],
+    "isFeatured": false,
+    "createdAt": "2024-01-13T00:00:00.000Z",
+    "updatedAt": "2024-01-13T00:00:00.000Z"
+  },
+  {
+    "owner": "3",
+    "name": "Reno City Condo",
+    "type": "Condo",
+    "description": "Modern downtown condo in Reno, offering comfort and convenience. Ideal for business travelers or couples, with easy access to local attractions.",
+    "location": {
+      "street": "400 Main Street",
+      "city": "Reno",
+      "state": "NV",
+      "zipcode": "89501"
+    },
+    "beds": 2,
+    "baths": 2,
+    "square_feet": 1200,
+    "amenities": [
+      "Wifi",
+      "High-Speed Internet",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "24/7 Security",
+      "Elevator Access",
+      "Dishwasher",
+      "Air Conditioning",
+      "Smart TV",
+      "Coffee Maker"
+    ],
+    "rates": {
+      "weekly": 1300,
+      "monthly": 4800
+    },
+    "seller_info": {
+      "name": "Charles Thompson",
+      "email": "charles.thompson@rentals.com",
+      "phone": "775-555-4567"
+    },
+    "images": ["n1.jpg", "n2.jpg", "n3.jpg"],
+    "isFeatured": false,
+    "createdAt": "2024-01-14T00:00:00.000Z",
+    "updatedAt": "2024-01-14T00:00:00.000Z"
+  },
+  {
+    "owner": "3",
+    "name": "Tahoe Lakeside Haven",
+    "type": "House",
+    "description": "Beautiful resort home by Lake Tahoe, offering luxurious amenities and stunning lake views. Perfect for families or groups seeking a relaxing retreat.",
+    "location": {
+      "street": "500 Lake Drive",
+      "city": "Lake Tahoe",
+      "state": "NV",
+      "zipcode": "89449"
+    },
+    "beds": 4,
+    "baths": 3,
+    "square_feet": 2400,
+    "amenities": [
+      "Wifi",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Swimming Pool",
+      "Hot Tub",
+      "24/7 Security",
+      "Wheelchair Accessible",
+      "Elevator Access",
+      "Dishwasher",
+      "Gym/Fitness Center",
+      "Air Conditioning",
+      "Balcony/Patio",
+      "Smart TV",
+      "Coffee Maker",
+      "Fireplace",
+      "Outdoor Grill/BBQ"
+    ],
+    "rates": {
+      "weekly": 2000,
+      "monthly": 7500
+    },
+    "seller_info": {
+      "name": "Jennifer Garcia",
+      "email": "jennifer.garcia@rentals.com",
+      "phone": "775-555-5678"
+    },
+    "images": ["o1.jpg", "o2.jpg", "o3.jpg"],
+    "isFeatured": true,
+    "createdAt": "2024-01-15T00:00:00.000Z",
+    "updatedAt": "2024-01-15T00:00:00.000Z"
+  },
+  {
+    "owner": "4",
+    "name": "Rocky Mountain Luxury Lodge",
+    "type": "House",
+    "description": "Stunning lodge in the heart of the Rocky Mountains, offering breathtaking views and high-end amenities. Ideal for large groups or family vacations.",
+    "location": {
+      "street": "100 Mountain Road",
+      "city": "Aspen",
+      "state": "CO",
+      "zipcode": "81611"
+    },
+    "beds": 5,
+    "baths": 4,
+    "square_feet": 3200,
+    "amenities": [
+      "Wifi",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Hot Tub",
+      "Balcony/Patio",
+      "Smart TV",
+      "Coffee Maker",
+      "Fireplace",
+      "Outdoor Grill/BBQ"
+    ],
+    "rates": {
+      "weekly": 2500,
+      "monthly": 9000
+    },
+    "seller_info": {
+      "name": "David Clark",
+      "email": "david.clark@rentals.com",
+      "phone": "970-555-6789"
+    },
+    "images": ["p1.jpg", "p2.jpg", "p3.jpg"],
+    "isFeatured": false,
+    "createdAt": "2024-01-16T00:00:00.000Z",
+    "updatedAt": "2024-01-16T00:00:00.000Z"
+  },
+  {
+    "owner": "4",
+    "name": "Vail Ski Condo",
+    "type": "Condo",
+    "description": "Perfect for ski enthusiasts, this condo offers ski-in/ski-out access in Vail. Enjoy cozy interiors, modern amenities, and beautiful mountain views.",
+    "location": {
+      "street": "200 Ski Road",
+      "city": "Vail",
+      "state": "CO",
+      "zipcode": "81657"
+    },
+    "beds": 2,
+    "baths": 2,
+    "square_feet": 1400,
+    "amenities": [
+      "Wifi",
+      "High-Speed Internet",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Hot Tub",
+      "24/7 Security",
+      "Elevator Access",
+      "Dishwasher",
+      "Air Conditioning",
+      "Smart TV",
+      "Coffee Maker"
+    ],
+    "rates": {
+      "weekly": 1700,
+      "monthly": 6500
+    },
+    "seller_info": {
+      "name": "Emily Scott",
+      "email": "emily.scott@rentals.com",
+      "phone": "970-555-7890"
+    },
+    "images": ["q1.jpg", "q2.jpg", "q3.jpg"],
+    "isFeatured": false,
+    "createdAt": "2024-01-17T00:00:00.000Z",
+    "updatedAt": "2024-01-17T00:00:00.000Z"
+  },
+  {
+    "owner": "4",
+    "name": "Boulder Lakeside Cabin",
+    "type": "Cabin",
+    "description": "Beautiful cabin by the lake in Boulder, offering tranquility and nature views. Ideal for a peaceful retreat with family or friends.",
+    "location": {
+      "street": "300 Lake View Road",
+      "city": "Boulder",
+      "state": "CO",
+      "zipcode": "80301"
+    },
+    "beds": 4,
+    "baths": 3,
+    "square_feet": 2200,
+    "amenities": [
+      "Wifi",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Swimming Pool",
+      "Hot Tub",
+      "Air Conditioning",
+      "Balcony/Patio",
+      "Smart TV",
+      "Coffee Maker",
+      "Fireplace",
+      "Outdoor Grill/BBQ"
+    ],
+    "rates": {
+      "weekly": 2000,
+      "monthly": 7500
+    },
+    "seller_info": {
+      "name": "Mary Harris",
+      "email": "mary.harris@rentals.com",
+      "phone": "303-555-1234"
+    },
+    "images": ["r1.jpg", "r2.jpg", "r3.jpg"],
+    "isFeatured": false,
+    "createdAt": "2024-01-18T00:00:00.000Z",
+    "updatedAt": "2024-01-18T00:00:00.000Z"
+  },
+  {
+    "owner": "4",
+    "name": "Denver Urban Apartment",
+    "type": "Apartment",
+    "description": "Modern apartment in downtown Denver, offering convenience and comfort. Perfect for business travelers or couples exploring the city.",
+    "location": {
+      "street": "400 Main Street",
+      "city": "Denver",
+      "state": "CO",
+      "zipcode": "80201"
+    },
+    "beds": 1,
+    "baths": 1,
+    "square_feet": 900,
+    "amenities": [
+      "Wifi",
+      "High-Speed Internet",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "24/7 Security",
+      "Elevator Access",
+      "Dishwasher",
+      "Air Conditioning",
+      "Smart TV",
+      "Coffee Maker"
+    ],
+    "rates": {
+      "weekly": 1100,
+      "monthly": 4000
+    },
+    "seller_info": {
+      "name": "John Roberts",
+      "email": "john.roberts@rentals.com",
+      "phone": "303-555-5678"
+    },
+    "images": ["s1.jpg", "s2.jpg", "s3.jpg"],
+    "isFeatured": false,
+    "createdAt": "2024-01-19T00:00:00.000Z",
+    "updatedAt": "2024-01-19T00:00:00.000Z"
+  },
+  {
+    "owner": "4",
+    "name": "Telluride Mountain Home",
+    "type": "House",
+    "description": "Luxurious mountain home in Telluride, offering stunning views and high-end amenities. Perfect for a large family or group seeking a premium experience.",
+    "location": {
+      "street": "500 Summit Drive",
+      "city": "Telluride",
+      "state": "CO",
+      "zipcode": "81435"
+    },
+    "beds": 5,
+    "baths": 4,
+    "square_feet": 3500,
+    "amenities": [
+      "Wifi",
+      "Full kitchen",
+      "Washer & Dryer",
+      "Free Parking",
+      "Swimming Pool",
+      "Hot Tub",
+      "24/7 Security",
+      "Wheelchair Accessible",
+      "Elevator Access",
+      "Dishwasher",
+      "Gym/Fitness Center",
+      "Air Conditioning",
+      "Balcony/Patio",
+      "Smart TV",
+      "Coffee Maker",
+      "Fireplace",
+      "Outdoor Grill/BBQ"
+    ],
+    "rates": {
+      "weekly": 3000,
+      "monthly": 9000
+    },
+    "seller_info": {
+      "name": "Brian Thompson",
+      "email": "brian.thompson@rentals.com",
+      "phone": "970-555-2345"
+    },
+    "images": ["t1.jpg", "t2.jpg", "t3.jpg"],
+    "isFeatured": false,
+    "createdAt": "2024-01-20T00:00:00.000Z",
+    "updatedAt": "2024-01-20T00:00:00.000Z"
   }
 ]

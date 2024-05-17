@@ -27,20 +27,30 @@ async function fetchProperties({ showFeatured = false } = {}) {
 // Fetch single property
 async function fetchProperty(id) {
   try {
-    // Handle the case where the domain is not available yet
+    // Check if apiDomain is defined
     if (!apiDomain) {
+      console.error('apiDomain is not defined');
       return null;
     }
 
-    const res = await fetch(`${apiDomain}/properties/${id}`);
+    // Log the full URL being fetched
+    const url = `${apiDomain}/properties/${id}`;
+    console.log('Fetching property from URL:', url);
+
+    const res = await fetch(url);
+
+    // Log the status of the response
+    console.log('Response status:', res.status);
 
     if (!res.ok) {
-      throw new Error('Failed to fetch data');
+      throw new Error(`Failed to fetch data: ${res.statusText}`);
     }
 
-    return res.json();
+    const data = await res.json();
+    console.log('Fetched data:', data);
+    return data;
   } catch (error) {
-    console.log(error);
+    console.error('Error in fetchProperty:', error);
     return null;
   }
 }

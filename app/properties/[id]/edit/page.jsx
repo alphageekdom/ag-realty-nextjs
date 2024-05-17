@@ -1,6 +1,4 @@
-import PropertyAddForm from '@/components/PropertyAddForm';
 import PropertyEditForm from '@/components/PropertyEditForm';
-import React from 'react';
 
 const PropertyEditPage = () => {
   return (

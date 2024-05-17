@@ -10,7 +10,6 @@ import {
 import { getRateDisplay } from '@/utils/utils';
 
 const PropertyCard = ({ property }) => {
-  console.log('Property Data:', property);
   return (
     <div className='rounded-xl shadow-md hover:shadow-2xl relative'>
       <Image
@@ -19,7 +18,7 @@ const PropertyCard = ({ property }) => {
         height={0}
         width={0}
         sizes='100vw'
-        className='w-full h-auto rounded-t-xl'
+        className='w-full h-80 rounded-t-xl object-cover'
         priority
       />
       <div className='p-4'>
