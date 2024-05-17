@@ -2,8 +2,6 @@ import connectDB from '@/config/database';
 import User from '@/models/User';
 
 import GoogleProvider from 'next-auth/providers/google';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import bcrypt from 'bcryptjs';
 
 export const authOptions = {
   providers: [
@@ -18,87 +16,36 @@ export const authOptions = {
         },
       },
     }),
-    CredentialsProvider({
-      name: 'credentials',
-      credentials: {
-        email: { label: 'Email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
-      },
-
-      async authorize(credentials, req) {
-        await connectDB();
-        const { email, password } = credentials;
-
-        // Return early if email or password is empty
-        if (!email || !password) {
-          throw new Error('Invalid credentials');
-        }
-
-        try {
-          const user = await User.findOne({ email });
-
-          if (!user) {
-            throw new Error('User not found');
-          }
-
-          const isPasswordValid = await bcrypt.compare(password, user.password);
-
-          if (!isPasswordValid) {
-            throw new Error('Invalid password');
-          }
-
-          return {
-            id: user._id.toString(),
-            email: user.email,
-            name: user.name,
-          };
-        } catch (error) {
-          console.error('Error occurred during authentication:', error);
-          throw new Error('Authentication failed');
-        }
-      },
-    }),
   ],
-  pages: {
-    signIn: '/login',
-  },
-  session: {
-    jwt: true,
-  },
-  database: process.env.MONGODB_URI,
-  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    // Modify the session object
-    async session({ session, token }) {
+    // Invoked on successful signin
+    async signIn({ profile }) {
+      // 1. Connect to database
       await connectDB();
-      const user = await User.findById(token.sub);
-      if (user) {
-        session.user.id = user.id;
-        session.user.userId = user._id;
-        session.user.isAdmin = user.isAdmin;
+      // 2. Check if user exists
+      const userExists = await User.findOne({ email: profile.email });
+      // 3. If not, then add user to database
+      if (!userExists) {
+        // Truncate user name if too long
+        const username = profile.name.slice(0, 20);
+
+        await User.create({
+          email: profile.email,
+          username,
+          image: profile.picture,
+        });
       }
+      // 4. Return true to allow sign in
+      return true;
+    },
+    // Modifies the session object
+    async session({ session }) {
+      // 1. Get user from database
+      const user = await User.findOne({ email: session.user.email });
+      // 2. Assign the user id to the session
+      session.user.id = user._id.toString();
+      // 3. return session
       return session;
     },
-  },
-
-  // Invoked on successful sign-in
-  async signIn({ user }) {
-    // Connect to database
-    await connectDB();
-    // Check if user exists
-    const userExists = await User.findOne({ email: user.email });
-    // User does not exist, add to database
-    if (!userExists) {
-      // Truncate username if too long
-      const name = user.name.slice(0, 20);
-
-      await User.create({
-        email: user.email,
-        name,
-        image: user.picture,
-      });
-    }
-    // Return true to allow sign-in
-    return true;
   },
 };
