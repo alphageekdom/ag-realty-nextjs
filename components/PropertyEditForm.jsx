@@ -67,7 +67,7 @@ const PropertyEditForm = () => {
     };
 
     fetchPropertyData();
-  }, []);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

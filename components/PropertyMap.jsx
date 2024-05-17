@@ -61,7 +61,13 @@ const PropertyMap = ({ property }) => {
     };
 
     fetchCoords();
-  }, []);
+  }, [
+    property.location.city,
+    property.location.state,
+    property.location.street,
+    property.location.zipcode,
+    viewport,
+  ]);
 
   if (loading) return <Spinner loading={loading} />;
 
